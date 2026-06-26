@@ -3,14 +3,73 @@
 <title>Acuícola Lomas de San Román · Inversión</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/tw.css">
 <style>
-  /* ── Base canvas ── */
+  /* ═══ BASE ═══ */
   body {
     background-color: #070708;
     cursor: none;
     overflow-x: hidden;
   }
 
-  /* ── Blueprint grid overlay ── */
+  /* ═══ PARTICLE CANVAS ═══ */
+  #particle-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ═══ FLOATING GRADIENT ORBS ═══ */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(129,140,248,0.08), transparent 70%);
+    top: -10%; left: -5%;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(192,132,252,0.06), transparent 70%);
+    top: 30%; right: -10%;
+  }
+  .orb-3 {
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(52,211,153,0.05), transparent 70%);
+    bottom: 10%; left: 20%;
+  }
+
+  /* ═══ MOUSE GLOW ═══ */
+  #mouse-glow {
+    position: fixed;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129,140,248,0.04), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%,-50%) translate3d(-999px,-999px,0);
+    will-change: transform;
+    transition: opacity 0.3s ease;
+  }
+
+  /* ═══ SCROLL PROGRESS BAR ═══ */
+  #scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #818cf8, #c084fc, #f0abfc);
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.05s linear;
+    box-shadow: 0 0 12px rgba(129,140,248,0.5);
+  }
+
+  /* ═══ GRID OVERLAY ═══ */
   .grid-overlay {
     position: fixed;
     inset: 0;
@@ -22,32 +81,11 @@
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
   }
 
-  /* ── Aurora ambient light ── */
-  .aurora-bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .aurora-bg::before {
-    content: '';
-    position: absolute;
-    width: 140%;
-    height: 140%;
-    top: -30%;
-    left: -20%;
-    background: 
-      radial-gradient(ellipse 600px 400px at 20% 20%, rgba(129,140,248,0.06), transparent 60%),
-      radial-gradient(ellipse 500px 350px at 80% 10%, rgba(192,132,252,0.04), transparent 55%),
-      radial-gradient(ellipse 400px 300px at 60% 80%, rgba(52,211,153,0.03), transparent 50%);
-    animation: aurora 20s ease-in-out infinite;
-    background-size: 200% 200%;
-  }
-
-  /* ── Noise texture ── */
+  /* ═══ NOISE TEXTURE ═══ */
   .noise-overlay {
     position: fixed;
     inset: 0;
@@ -56,12 +94,12 @@
     opacity: 0.012;
   }
 
-  /* ── Custom cursor ── */
+  /* ═══ CUSTOM CURSOR (ring + dot + trail) ═══ */
   .custom-cursor {
     position: fixed;
     top: 0; left: 0;
     width: 28px; height: 28px;
-    border: 1.5px solid rgba(255,255,255,0.25);
+    border: 1.5px solid rgba(255,255,255,0.2);
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
@@ -75,17 +113,19 @@
   .cursor-dot {
     position: fixed;
     top: 0; left: 0;
-    width: 4px; height: 4px;
-    background: white;
+    width: 5px; height: 5px;
+    background: rgba(129,140,248,0.9);
     border-radius: 50%;
     pointer-events: none;
     z-index: 10001;
     transform: translate3d(-100px,-100px,0);
     will-change: transform;
+    box-shadow: 0 0 8px rgba(129,140,248,0.4);
   }
   @media (max-width: 768px) {
-    .custom-cursor, .cursor-dot { display: none !important; }
+    .custom-cursor, .cursor-dot, #mouse-glow { display: none !important; }
     body { cursor: auto !important; }
+    #particle-canvas { display: none; }
   }
   .custom-cursor.hover {
     width: 56px; height: 56px;
@@ -94,19 +134,21 @@
     mix-blend-mode: difference;
   }
 
-  /* ── Card spotlight effect ── */
+  /* ═══ CARD SPOTLIGHT + TILT ═══ */
   .spotlight-card {
     position: relative;
     overflow: hidden;
     transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
   }
   .spotlight-card::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: radial-gradient(400px circle at var(--mx,-999px) var(--my,-999px),
-      rgba(129,140,248,0.06), transparent 70%);
+    background: radial-gradient(450px circle at var(--mx,-999px) var(--my,-999px),
+      rgba(129,140,248,0.08), transparent 65%);
     z-index: 0;
     pointer-events: none;
     opacity: 0;
@@ -114,14 +156,13 @@
   }
   .spotlight-card:hover::before { opacity: 1; }
   .spotlight-card:hover {
-    border-color: rgba(255,255,255,0.08) !important;
-    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.1) !important;
   }
 
-  /* ── Scroll reveal ── */
+  /* ═══ SCROLL REVEAL ═══ */
   .reveal {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(35px);
     transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1),
                 transform 0.9s cubic-bezier(0.16,1,0.3,1);
   }
@@ -130,10 +171,54 @@
     transform: translateY(0);
   }
 
-  /* ── Gradient border ── */
-  .gradient-border {
-    position: relative;
+  /* ═══ PARALLAX ELEMENTS ═══ */
+  [data-parallax] {
+    will-change: transform;
+    transition: transform 0.1s linear;
   }
+
+  /* ═══ ANIMATED SHIMMER LINE ═══ */
+  .shimmer-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(129,140,248,0.3), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  @keyframes aurora {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ═══ STAGGER DELAYS ═══ */
+  .delay-1 { transition-delay: 80ms; animation-delay: 80ms; }
+  .delay-2 { transition-delay: 160ms; animation-delay: 160ms; }
+  .delay-3 { transition-delay: 240ms; animation-delay: 240ms; }
+  .delay-4 { transition-delay: 320ms; animation-delay: 320ms; }
+  .delay-5 { transition-delay: 400ms; animation-delay: 400ms; }
+  .delay-6 { transition-delay: 480ms; animation-delay: 480ms; }
+
+  /* ═══ MAGNETIC HOVER ═══ */
+  .magnetic {
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* ═══ PROJECT CARD ═══ */
+  .project-card .card-gradient {
+    transition: opacity 0.5s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .project-card:hover .card-gradient {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+
+  /* ═══ GRADIENT BORDER ═══ */
   .gradient-border::after {
     content: '';
     position: absolute;
@@ -147,46 +232,31 @@
     pointer-events: none;
   }
 
-  /* ── Animated shimmer ── */
-  .shimmer-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(129,140,248,0.3), transparent);
-    background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+  /* ═══ SCROLL INDICATOR PULSE ═══ */
+  .scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+  @keyframes scrollBounce {
+    0%,100% { transform: translateY(0); opacity: 0.4; }
+    50% { transform: translateY(8px); opacity: 0.8; }
   }
 
-  /* ── Number counter animation ── */
-  @keyframes aurora {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* ── Stagger delays ── */
-  .delay-1 { transition-delay: 100ms; animation-delay: 100ms; }
-  .delay-2 { transition-delay: 200ms; animation-delay: 200ms; }
-  .delay-3 { transition-delay: 300ms; animation-delay: 300ms; }
-  .delay-4 { transition-delay: 400ms; animation-delay: 400ms; }
-  .delay-5 { transition-delay: 500ms; animation-delay: 500ms; }
-
-  /* ── Project card hover gradient shift ── */
-  .project-card .card-gradient {
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .project-card:hover .card-gradient {
-    opacity: 0.9;
-    transform: scale(1.05);
-  }
-
-  /* ── Horizontal scroll for chips ── */
   .scroll-chips { scrollbar-width: none; }
   .scroll-chips::-webkit-scrollbar { display: none; }
 </style>
 </head><body class="min-h-screen antialiased pb-10">
-  <!-- Aurora ambient -->
-  <div class="aurora-bg"></div>
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
+  <!-- Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+  <!-- Floating Gradient Orbs -->
+  <div class="orb orb-1" id="orb1"></div>
+  <div class="orb orb-2" id="orb2"></div>
+  <div class="orb orb-3" id="orb3"></div>
+  <!-- Mouse Glow -->
+  <div id="mouse-glow"></div>
   <!-- Grid overlay -->
-  <div class="grid-overlay"></div>
+  <div class="grid-overlay" id="grid-ov"></div>
   <!-- Noise texture -->
   <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
     <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/></filter>
@@ -200,22 +270,22 @@
   <header class="fixed top-0 left-0 right-0 z-50 px-4 pt-5">
   <nav class="nav-bar max-w-5xl mx-auto backdrop-blur-xl bg-surface-0/50 border border-white/[0.04] rounded-2xl py-2.5 px-5 flex items-center justify-between transition-all duration-500" style="box-shadow:0 8px 40px -12px rgba(0,0,0,.5)">
     <div class="flex items-center gap-3">
-      <div class="relative w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-glow-sm">
+      <div class="relative w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center shadow-glow-sm magnetic">
         <span class="font-display font-bold text-white text-[10px]">EH</span>
       </div>
-      <a href="../index.html" class="font-display font-bold text-white text-xs tracking-[.15em] uppercase hover:text-accent-bright transition-colors duration-300">Portafolio</a>
+      <a href="../index.html" class="font-display font-bold text-white text-xs tracking-[.15em] uppercase hover:text-accent-bright transition-colors duration-300 magnetic interactive">Portafolio</a>
     </div>
     <div class="hidden md:flex items-center gap-8 text-[11px] font-semibold tracking-[.12em] uppercase text-white/40">
-      <a href="../index.html" class="hover:text-white transition-colors duration-300 relative group">
+      <a href="../index.html" class="hover:text-white transition-colors duration-300 relative group magnetic interactive">
         Inicio
         <span class="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"></span>
       </a>
-      <a href="../index.html#oportunidades" class="hover:text-white transition-colors duration-300 relative group">
+      <a href="../index.html#oportunidades" class="hover:text-white transition-colors duration-300 relative group magnetic interactive">
         Proyectos
         <span class="absolute -bottom-1 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-300"></span>
       </a>
     </div>
-    <div class="flex items-center gap-2 rounded-full py-1.5 px-3" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.12)">
+    <div class="flex items-center gap-2 rounded-full py-1.5 px-3 magnetic interactive" style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.12)">
       <span class="relative flex h-1.5 w-1.5">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60"></span>
         <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
@@ -429,65 +499,289 @@
   </div>
 
   <script>
-    // ── Custom cursor with physics ──
-    const ring = document.getElementById('cursor-ring');
-    const dot = document.getElementById('cursor-dot');
-    if (ring && dot) {
-      let mx = -100, my = -100, rx = -100, ry = -100;
-      const sp = 0.12;
-      document.addEventListener('mousemove', ev => { mx = ev.clientX; my = ev.clientY; });
-      function tick() {
-        rx += (mx - rx) * sp;
-        ry += (my - ry) * sp;
-        const s = ring.classList.contains('hover') ? 56 : 28;
-        ring.style.transform = `translate3d(${rx - s/2}px,${ry - s/2}px,0)`;
-        dot.style.transform = `translate3d(${mx - 2}px,${my - 2}px,0)`;
-        requestAnimationFrame(tick);
+  (function() {
+    'use strict';
+    const isMobile = window.innerWidth < 769;
+    let mouseX = -999, mouseY = -999, scrollY = 0, scrollPct = 0;
+    const ease = 0.12;
+
+    // ═══════════════════════════════════════════
+    // 1. PARTICLE CONSTELLATION (Canvas)
+    // ═══════════════════════════════════════════
+    if (!isMobile) {
+      const cvs = document.getElementById('particle-canvas');
+      const ctx = cvs.getContext('2d');
+      let W, H;
+      function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const COUNT = 80;
+      const LINK_DIST = 140;
+      const MOUSE_RADIUS = 200;
+      const particles = [];
+
+      for (let i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 1.5 + 0.5,
+          baseAlpha: Math.random() * 0.3 + 0.1
+        });
       }
-      requestAnimationFrame(tick);
-      document.querySelectorAll('a,button,[role="button"],.interactive').forEach(el => {
+
+      function drawParticles() {
+        ctx.clearRect(0, 0, W, H);
+
+        // Scroll speed boost
+        const scrollBoost = 1 + Math.abs(window._scrollDelta || 0) * 0.02;
+
+        for (let i = 0; i < COUNT; i++) {
+          const p = particles[i];
+          // Mouse repulsion
+          const dxm = p.x - mouseX;
+          const dym = p.y - mouseY;
+          const distM = Math.sqrt(dxm*dxm + dym*dym);
+          if (distM < MOUSE_RADIUS && distM > 0) {
+            const force = (MOUSE_RADIUS - distM) / MOUSE_RADIUS * 0.8;
+            p.vx += (dxm / distM) * force;
+            p.vy += (dym / distM) * force;
+          }
+
+          // Damping
+          p.vx *= 0.97;
+          p.vy *= 0.97;
+
+          // Movement
+          p.x += p.vx * scrollBoost;
+          p.y += p.vy * scrollBoost;
+
+          // Wrap
+          if (p.x < -10) p.x = W + 10;
+          if (p.x > W + 10) p.x = -10;
+          if (p.y < -10) p.y = H + 10;
+          if (p.y > H + 10) p.y = -10;
+
+          // Draw particle
+          const alpha = p.baseAlpha * (0.6 + 0.4 * Math.sin(Date.now() * 0.001 + i));
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(129,140,248,${alpha.toFixed(3)})`;
+          ctx.fill();
+        }
+
+        // Draw connections
+        for (let i = 0; i < COUNT; i++) {
+          for (let j = i + 1; j < COUNT; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < LINK_DIST) {
+              const a = (1 - d / LINK_DIST) * 0.12;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(129,140,248,${a.toFixed(3)})`;
+              ctx.lineWidth = 0.5;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Mouse-to-particle connections
+        if (mouseX > 0) {
+          for (let i = 0; i < COUNT; i++) {
+            const dx = particles[i].x - mouseX;
+            const dy = particles[i].y - mouseY;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < MOUSE_RADIUS) {
+              const a = (1 - d / MOUSE_RADIUS) * 0.2;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(mouseX, mouseY);
+              ctx.strokeStyle = `rgba(192,132,252,${a.toFixed(3)})`;
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(drawParticles);
+      }
+      requestAnimationFrame(drawParticles);
+    }
+
+    // ═══════════════════════════════════════════
+    // 2. MOUSE TRACKING (shared state)
+    // ═══════════════════════════════════════════
+    document.addEventListener('mousemove', ev => {
+      mouseX = ev.clientX;
+      mouseY = ev.clientY;
+    });
+
+    // ═══════════════════════════════════════════
+    // 3. CUSTOM CURSOR (ring + dot)
+    // ═══════════════════════════════════════════
+    if (!isMobile) {
+      const ring = document.getElementById('cursor-ring');
+      const dot = document.getElementById('cursor-dot');
+      const glow = document.getElementById('mouse-glow');
+      let rx = -100, ry = -100;
+      function tickCursor() {
+        rx += (mouseX - rx) * ease;
+        ry += (mouseY - ry) * ease;
+        const s = ring.classList.contains('hover') ? 56 : 28;
+        ring.style.transform = `translate3d(${rx-s/2}px,${ry-s/2}px,0)`;
+        dot.style.transform = `translate3d(${mouseX-2.5}px,${mouseY-2.5}px,0)`;
+        glow.style.transform = `translate(-50%,-50%) translate3d(${mouseX}px,${mouseY}px,0)`;
+        requestAnimationFrame(tickCursor);
+      }
+      requestAnimationFrame(tickCursor);
+
+      // Hover detection
+      document.querySelectorAll('a,button,[role="button"],.interactive,.magnetic').forEach(el => {
         el.addEventListener('mouseenter', () => ring.classList.add('hover'));
         el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
       });
     }
 
-    // ── Card spotlight ──
-    document.querySelectorAll('.spotlight-card').forEach(c => {
-      c.addEventListener('mousemove', ev => {
-        const r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', `${ev.clientX - r.left}px`);
-        c.style.setProperty('--my', `${ev.clientY - r.top}px`);
+    // ═══════════════════════════════════════════
+    // 4. CARD SPOTLIGHT + 3D TILT
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('mousemove', ev => {
+        const r = card.getBoundingClientRect();
+        const x = ev.clientX - r.left;
+        const y = ev.clientY - r.top;
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+        // 3D tilt
+        const cx = r.width / 2;
+        const cy = r.height / 2;
+        const rotX = ((y - cy) / cy) * -3;
+        const rotY = ((x - cx) / cx) * 3;
+        card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(4px)`;
       });
-      c.addEventListener('mouseleave', () => {
-        c.style.removeProperty('--mx');
-        c.style.removeProperty('--my');
+      card.addEventListener('mouseleave', () => {
+        card.style.removeProperty('--mx');
+        card.style.removeProperty('--my');
+        card.style.transform = '';
       });
     });
 
-    // ── Scroll reveal with IntersectionObserver ──
-    const obs = new IntersectionObserver((entries) => {
+    // ═══════════════════════════════════════════
+    // 5. MAGNETIC BUTTONS
+    // ═══════════════════════════════════════════
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      btn.addEventListener('mousemove', ev => {
+        const r = btn.getBoundingClientRect();
+        const x = ev.clientX - r.left - r.width / 2;
+        const y = ev.clientY - r.top - r.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+
+    // ═══════════════════════════════════════════
+    // 6. SCROLL EFFECTS (progress, orbs, parallax, grid fade)
+    // ═══════════════════════════════════════════
+    const progressBar = document.getElementById('scroll-progress');
+    const orb1 = document.getElementById('orb1');
+    const orb2 = document.getElementById('orb2');
+    const orb3 = document.getElementById('orb3');
+    const gridOv = document.getElementById('grid-ov');
+    let lastScroll = 0;
+    window._scrollDelta = 0;
+
+    function onScroll() {
+      const sy = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      scrollPct = docH > 0 ? sy / docH : 0;
+      window._scrollDelta = sy - lastScroll;
+      lastScroll = sy;
+
+      // Scroll progress bar
+      if (progressBar) progressBar.style.width = `${scrollPct * 100}%`;
+
+      // Float orbs with scroll (parallax layers)
+      if (orb1) orb1.style.transform = `translate3d(${Math.sin(scrollPct*3)*30}px, ${-sy*0.15}px, 0)`;
+      if (orb2) orb2.style.transform = `translate3d(${Math.cos(scrollPct*2)*40}px, ${-sy*0.08}px, 0)`;
+      if (orb3) orb3.style.transform = `translate3d(${Math.sin(scrollPct*4)*20}px, ${-sy*0.12}px, 0)`;
+
+      // Grid fade on scroll
+      if (gridOv) gridOv.style.opacity = Math.max(0, 0.6 - scrollPct * 0.8);
+
+      // Parallax elements
+      document.querySelectorAll('[data-parallax]').forEach(el => {
+        const speed = parseFloat(el.dataset.parallax) || 0.1;
+        el.style.transform = `translateY(${-sy * speed}px)`;
+      });
+    }
+
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          onScroll();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+    onScroll();
+
+    // ═══════════════════════════════════════════
+    // 7. SCROLL REVEAL (IntersectionObserver)
+    // ═══════════════════════════════════════════
+    const obs = new IntersectionObserver(entries => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('active'), i * 60);
+          const delay = parseInt(entry.target.dataset.revealDelay || '0') || i * 50;
+          setTimeout(() => entry.target.classList.add('active'), delay);
           obs.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // ── Smooth nav background ──
-    const nav = document.querySelector('.nav-bar');
-    if (nav) {
-      let ticking = false;
+    // ═══════════════════════════════════════════
+    // 8. NAV SCROLL EFFECT
+    // ═══════════════════════════════════════════
+    const navBar = document.querySelector('.nav-bar');
+    if (navBar) {
+      let navTick = false;
       window.addEventListener('scroll', () => {
-        if (!ticking) {
+        if (!navTick) {
           requestAnimationFrame(() => {
-            nav.classList.toggle('scrolled', window.scrollY > 60);
-            ticking = false;
+            const scrolled = window.scrollY > 50;
+            navBar.style.background = scrolled
+              ? 'rgba(7,7,8,0.85)'
+              : 'rgba(7,7,8,0.5)';
+            navBar.style.borderColor = scrolled
+              ? 'rgba(255,255,255,0.06)'
+              : 'rgba(255,255,255,0.04)';
+            navTick = false;
           });
-          ticking = true;
+          navTick = true;
         }
-      });
+      }, { passive: true });
     }
+
+    // ═══════════════════════════════════════════
+    // 9. SMOOTH ENTRANCE ANIMATION
+    // ═══════════════════════════════════════════
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.6s ease';
+      requestAnimationFrame(() => {
+        document.body.style.opacity = '1';
+      });
+    });
+
+  })();
   </script>
 </body></html>
