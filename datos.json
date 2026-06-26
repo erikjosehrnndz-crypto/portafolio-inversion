@@ -92,7 +92,8 @@
       "resumen": "<p>Una <b>“papelería de piezas a la medida”</b>: el cliente trae una idea o un dibujo y se la entregamos impresa en 3D (plástico o resina). Enfoque B2B: talleres, ingenios cañeros, el puerto, diseñadores y arquitectos. Arranca en casa (etapa piloto, sin renta) para reducir riesgo. <b>No hay ningún taller de impresión 3D en el municipio</b> — ventaja de ser el primero.</p>",
       "secciones": [
         {"titulo": "La oportunidad", "html": "<p>Cardel es el cruce de caminos del centro de Veracruz: a 30 min del puerto, cerca de la CFE de Laguna Verde, ingenios azucareros y el corredor industrial. Muchos negocios necesitan refacciones discontinuadas, prototipos y piezas especiales y hoy tienen que pedirlas a Veracruz o Xalapa (30–90 min). Nosotros las hacemos local y rápido.</p>"},
-        {"titulo": "Cómo gana dinero", "html": "<ul><li>Piezas y refacciones a la medida: <b>$150–$1,200</b> por pieza.</li><li>Prototipos y maquetas para diseñadores/arquitectos: <b>$250–$1,500</b>.</li><li>Lotes para ingenios y puerto: <b>$300–$3,000</b>.</li></ul><p>Margen bruto operativo alto (~82%); el costo variable de material es ~18% de la venta.</p>"}
+        {"titulo": "Cómo gana dinero", "html": "<ul><li>Piezas y refacciones a la medida: <b>$150–$1,200</b> por pieza.</li><li>Prototipos y maquetas para diseñadores/arquitectos: <b>$250–$1,500</b>.</li><li>Lotes para ingenios y puerto: <b>$300–$3,000</b>.</li></ul><p>Margen bruto operativo alto (~82%); el costo variable de material es ~18% de la venta.</p>"},
+        {"titulo": "Oportunidades de Financiamiento", "html": "<p>El proyecto es elegible para apalancamiento mediante <b>programas gubernamentales de Veracruz</b> (Fondo del Futuro, NAFIN), <b>Leasing (Arrendamiento Puro)</b> con deducción fiscal al 100%, o <b>Vendor Financing</b> a meses sin intereses directo con los fabricantes de impresoras, reduciendo la presión de capital inicial.</p>"}
       ],
       "finanzas": {
         "capex": [
@@ -128,10 +129,13 @@
         }
       },
       "riesgos": [
-        "🟡 <b>Demanda B2B:</b> los clientes no llegan solos. Mitigación: salir a buscar cliente por cliente, 3–6 meses de validación.",
-        "🟡 <b>Diseño CAD:</b> capacitación en FreeCAD/Tinkercad + aceptar archivos del cliente + alianza con un diseñador por comisión.",
-        "🟡 <b>Tipo de cambio:</b> equipo importado; cotizar en MXN y cuidar el margen.",
-        "🟢 <b>Propiedad intelectual:</b> política de no imprimir piezas de seguridad ni patentadas vigentes."
+        "🟡 <b>Demanda B2B:</b> los clientes no llegan solos. Mitigación: regalar muestras funcionales (proof of concept) a ingenios y empresas locales.",
+        "🟡 <b>Diseño CAD:</b> el fundador no domina el CAD. Mitigación: alianzas con freelance por comisión + capacitación diaria + aceptar solo archivos 3D iniciales.",
+        "🟡 <b>Fluctuaciones Eléctricas (CFE):</b> un apagón arruina horas de trabajo. Mitigación: máquinas con Power Loss Recovery y UPS (No-Break) obligatorio.",
+        "🟡 <b>Humedad Costera:</b> Cardel daña el filamento. Mitigación: cajas herméticas con sílica y secadores activos (Dry Box) durante impresión.",
+        "🟡 <b>Paro de Máquina:</b> desgaste natural de boquillas/pantallas. Mitigación: tener refacciones (cold spares) en stock desde el día 1.",
+        "🔴 <b>Manejo de Resina (Toxicidad):</b> peligro ambiental y salud. Mitigación: equipo de protección, ventilación y curado solar de residuos antes de desechar.",
+        "🟢 <b>Propiedad intelectual:</b> política estricta de no imprimir piezas de seguridad automotriz ni elementos patentados vigentes."
       ],
       "por_que": [
         "Único taller de impresión 3D en el municipio (primero en llegar).",
