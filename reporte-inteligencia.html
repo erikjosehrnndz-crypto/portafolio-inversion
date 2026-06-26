@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dossier de Inteligencia Forense: Armas 3D y Ecosistema Criminal</title>
   <link rel="stylesheet" href="forensic.css">
+  <style>
+    /* Estilos extra para el Roadmap */
+    .roadmap-container { display: flex; flex-direction: column; gap: 20px; position: relative; padding-left: 40px; }
+    .roadmap-container::before { content: ""; position: absolute; left: 15px; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-red)); border-radius: 4px; }
+    .roadmap-node { background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 8px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+    .roadmap-node:hover { transform: translateX(10px); border-color: var(--accent-cyan); }
+    .roadmap-node::before { content: ""; position: absolute; left: -34px; top: 30px; width: 20px; height: 20px; border-radius: 50%; background: var(--bg-main); border: 4px solid var(--accent-cyan); box-shadow: 0 0 15px var(--accent-cyan); z-index: 2; }
+    .roadmap-node.red-node:hover { border-color: var(--accent-red); }
+    .roadmap-node.red-node::before { border-color: var(--accent-red); box-shadow: 0 0 15px var(--accent-red); }
+    .phase-tag { font-family: "JetBrains Mono", monospace; color: var(--accent-cyan); font-weight: bold; letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 10px; display: inline-block; }
+    .roadmap-node.red-node .phase-tag { color: var(--accent-red); }
+  </style>
 </head>
 <body>
 
@@ -13,7 +25,7 @@
     <div class="container hero-content">
       <span class="badge red">TOP SECRET // CLEARANCE: ALPHA</span>
       <h1>La Asimetría del Polímero</h1>
-      <p class="mono text-cyan">> REPORTE_FORENSE_V2.0.5<br>> ANALIZANDO_AMENAZA: MANUFACTURA_HÍBRIDA_3D</p>
+      <p class="mono text-cyan">> REPORTE_FORENSE_V2.0.6<br>> ANALIZANDO_AMENAZA: MANUFACTURA_HÍBRIDA_3D</p>
       <p>Análisis de inteligencia sobre cómo la fusión de la impresión 3D, el Mecanizado Electroquímico (ECM) y el vacío legal de los componentes de doble uso están reescribiendo la logística del mercado negro armamentístico.</p>
     </div>
   </header>
@@ -41,7 +53,7 @@
   </section>
 
   <!-- THE WORKFLOW (7 DAYS) WITH EVIDENCE -->
-  <section class="section" style="background: rgba(0,240,255,0.02); border-top: 1px solid rgba(0,240,255,0.1); border-bottom: 1px solid rgba(0,240,255,0.1);">
+  <section class="section" style="background: rgba(0,240,255,0.02); border-top: 1px solid rgba(0,240,255,0.1);">
     <div class="container">
       <div class="reveal">
         <span class="badge red">VULNERABILIDAD LOGÍSTICA VERIFICADA</span>
@@ -69,7 +81,7 @@
                 1. Impresora 3D (ej. Creality Ender 3) - <em>Entrega Prime 24h.</em><br>
                 2. Filamento eSun PLA+ ($22 USD) - <em>Entrega Prime 24h.</em><br>
                 3. Tubo Hidráulico de Acero Sin Costura (DIN 2391, OD 16mm). Usado en tractores. - <em>Disponible en eBay o ferreterías locales sin restricciones.</em><br>
-                4. Epoxi JB Weld y Muelles de Compresión industriales (Springs).
+                4. Epoxi JB Weld y Muelles de Compresión industriales.
               </div>
             </div>
 
@@ -98,6 +110,43 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACTORY ROADMAP -->
+  <section class="section" style="background: rgba(0,0,0,0.4); border-bottom: 1px solid rgba(0,240,255,0.1);">
+    <div class="container reveal">
+      <span class="badge red">PROYECCIÓN ESTRATÉGICA VERIFICADA</span>
+      <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">Roadmap de Escalabilidad: De Cero a "Fábrica Clandestina"</h2>
+      <p style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto 50px;">Cómo las organizaciones criminales (basado en incautaciones reales en Europa y Myanmar) escalan el flujo de 7 días hacia una operación industrial indetectable.</p>
+      
+      <div style="max-width: 900px; margin: 0 auto;" class="roadmap-container">
+        
+        <div class="roadmap-node">
+          <span class="phase-tag">FASE 1: CELULA DE PRUEBA (EL GARAJE)</span>
+          <h3 style="margin-bottom: 10px;">Validación de Concepto (Inversión: $500 USD)</h3>
+          <p class="text-muted" style="margin-bottom: 10px;">Un solo individuo calibra los parámetros de software (Slicing) y realiza una prueba de fuego remota (activando el arma con una cuerda a distancia). Se establece la viabilidad de la munición casera o recargada. <strong>Evidencia:</strong> Documentado en múltiples arrestos de "lobos solitarios" en la UE (2019-2022).</p>
+        </div>
+
+        <div class="roadmap-node">
+          <span class="phase-tag">FASE 2: BALCANIZACIÓN LOGÍSTICA</span>
+          <h3 style="margin-bottom: 10px;">Separación de Tareas (Inversión: $3,000 USD)</h3>
+          <p class="text-muted" style="margin-bottom: 10px;">Para evadir allanamientos, se divide la manufactura. <br>• <strong>Nodo A:</strong> Un apartamento residencial opera 5 impresoras (Granja) creando solo plástico. <br>• <strong>Nodo B:</strong> Un taller remoto usa matrices ECM masivas para tallar 10 cañones simultáneamente. <br><strong>Evidencia:</strong> Modus operandi exacto desmantelado en la Operación Carmelo (Tenerife, España).</p>
+        </div>
+
+        <div class="roadmap-node">
+          <span class="phase-tag">FASE 3: BLANQUEO Y ESTRATAGEMA FINANCIERA</span>
+          <h3 style="margin-bottom: 10px;">Empresas Fachada y Criptografía (KYC Bypass)</h3>
+          <p class="text-muted" style="margin-bottom: 10px;">Para comprar 500kg de acero y cientos de bobinas de filamento sin alertar a Hacienda, se crean empresas de "arquitectura" o "mantenimiento industrial" (Factureras). Las tutorías de expertos armeros en la Dark Web se pagan usando <em>Monero</em> (Criptomoneda de privacidad) y Mixers (Tornado Cash), borrando el rastro. <strong>Evidencia:</strong> Reportes de FATF (GAFI) sobre el uso de activos virtuales por extremistas.</p>
+        </div>
+
+        <div class="roadmap-node red-node">
+          <span class="phase-tag">FASE 4: INDUSTRIA COMPLETA DESCENTRALIZADA</span>
+          <h3 style="margin-bottom: 10px;">Producción Off-Grid y Distribución Mesh</h3>
+          <p class="text-muted">La fábrica no es un edificio, es una red. Operan con energía solar para evitar picos de consumo eléctrico en la red urbana. Los componentes son transportados por "mulas" usando servicios de paquetería legales (como si fueran repuestos de coche). La coordinación total ocurre en protocolos encriptados sin servidor (ej. Matrix, Meshtastic). <strong>Evidencia Irrefutable:</strong> Fotogramas y documentales de las Fuerzas de Defensa del Pueblo (PDF) en la jungla de Myanmar (2022-2025).</p>
+        </div>
+
       </div>
     </div>
   </section>
