@@ -1,12 +1,133 @@
 <!DOCTYPE html><html lang="es"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taller de Motos con Convenios · Inversión</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<title>Taller de Motos con Convenios · Inversión</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/tw.css">
-</head><body class="min-h-screen"><header class="sticky top-0 z-30 backdrop-blur-xl bg-slate-950/70 border-b border-white/10">
-  <div class="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
-    <a href="../index.html" class="font-display font-extrabold text-white tracking-tight">◆ Portafolio<span class="text-sky-400">·</span>Inversión</a>
-    <a href="../index.html" class="text-sm text-slate-400 hover:text-white transition">Erik Hernández</a>
-  </div></header><main class="max-w-5xl mx-auto px-5 pb-16"><a href="../index.html" class="inline-block mt-5 text-sm text-slate-400 hover:text-white transition">← Portafolio</a><section class="relative overflow-hidden rounded-3xl mt-3 p-8 md:p-12 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-800 shadow-card">
+<style>
+  body {
+    background-color: #070708;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+    background-size: 40px 40px;
+    cursor: none;
+    content-visibility: auto;
+  }
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.015;
+  }
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate3d(-100px, -100px, 0);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+  @media (max-width: 768px) {
+    .custom-cursor { display: none !important; }
+    body { cursor: auto !important; }
+  }
+  .custom-cursor.hover {
+    width: 58px;
+    height: 58px;
+    background-color: #ffffff;
+    border-color: transparent;
+    mix-blend-mode: difference;
+  }
+  .bento-card, .project-card, .premium-card, .card {
+    position: relative;
+    background: rgba(13, 13, 15, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+    transform: translate3d(0,0,0);
+    will-change: transform;
+  }
+  .bento-card:hover, .project-card:hover, .premium-card:hover, .card:hover {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    transform: translateY(-4px) translate3d(0,0,0);
+  }
+  .bento-card::before, .project-card::before, .premium-card::before, .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1.5rem;
+    background: radial-gradient(350px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.1), transparent 80%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    will-change: opacity;
+  }
+  .bento-card:hover::before, .project-card:hover::before, .premium-card:hover::before, .card:hover::before {
+    opacity: 1;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head><body class="min-h-screen text-neutral-200 antialiased overflow-x-hidden selection:bg-white/10 selection:text-white pb-10">
+  <!-- Noise Overlay -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+  </svg>
+  <!-- Custom Cursor -->
+  <div id="custom-cursor" class="custom-cursor"></div>
+  <header class="fixed top-6 left-0 right-0 z-50 px-4 md:px-8 max-w-6xl mx-auto">
+  <nav class="backdrop-blur-md bg-[#070708]/60 border border-white/5 rounded-full py-3 px-6 flex items-center justify-between shadow-2xl transition-all duration-300 hover:border-white/10">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+        <span class="font-black text-black text-sm">◆</span>
+      </div>
+      <a href="../index.html" class="font-display font-extrabold text-white text-xs tracking-widest uppercase">Portafolio</a>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-white/60">
+      <a href="../index.html" class="hover:text-white transition">Inicio</a>
+      <a href="../index.html#oportunidades" class="hover:text-white transition">Oportunidades</a>
+    </div>
+    <div class="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full py-1.5 px-3">
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+      </span>
+      <span class="text-[8px] uppercase tracking-wider font-extrabold text-white/80">Online</span>
+    </div>
+  </nav>
+</header><main class="max-w-5xl mx-auto px-5 pb-16 pt-28"><a href="../index.html" class="inline-block mt-5 text-sm text-slate-400 hover:text-[#f4f4f5] transition">← Portafolio</a><section class="relative overflow-hidden rounded-3xl mt-3 p-8 md:p-12 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-purple-800 shadow-card">
   <div class="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-white/15 blur-2xl animate-floaty"></div>
   <div class="relative">
     <p class="uppercase tracking-[.18em] text-xs text-white/80">Ciudad Cardel, La Antigua, Veracruz</p>
@@ -83,4 +204,65 @@
   <a href="../index.html" class="btn bg-white text-slate-900 mt-4 hover:opacity-90">← Ver los demás proyectos</a></section></main><footer class="max-w-6xl mx-auto px-5 py-10 text-center text-xs text-slate-500">
   Documento de trabajo para socios · Cifras en MXN · Modelo financiero determinista ·
   <span class="text-emerald-400">🟢 verificado</span> · <span class="text-amber-400">🟡 por confirmar</span> ·
-  <span class="text-rose-400">🔴 estimación</span><br>Generado 2026-06-26</footer></body></html>
+  <span class="text-rose-400">🔴 estimación</span><br>Generado 2026-06-26</footer>
+  <script>
+    // Cursor magnético
+    const cursor = document.getElementById('custom-cursor');
+    if (cursor) {
+      let mouse = { x: -100, y: -100 };
+      let pos = { x: -100, y: -100 };
+      const speed = 0.15;
+      document.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+      });
+      function animateCursor() {
+        const dx = mouse.x - pos.x;
+        const dy = mouse.y - pos.y;
+        pos.x += dx * speed;
+        pos.y += dy * speed;
+        const size = cursor.classList.contains('hover') ? 58 : 32;
+        cursor.style.transform = `translate3d(${pos.x - size/2}px, ${pos.y - size/2}px, 0)`;
+        requestAnimationFrame(animateCursor);
+      }
+      requestAnimationFrame(animateCursor);
+      
+      const setupHover = () => {
+        const interactives = document.querySelectorAll('a, button, [role="button"], .interactive-element');
+        interactives.forEach(el => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+      };
+      setupHover();
+    }
+    // Spotlight
+    const cards = document.querySelectorAll('.bento-card, .project-card, .premium-card, .card');
+    cards.forEach(card => {
+      let frameId = null;
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        if (frameId) cancelAnimationFrame(frameId);
+        frameId = requestAnimationFrame(() => {
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        if (frameId) cancelAnimationFrame(frameId);
+        requestAnimationFrame(() => {
+          card.style.removeProperty('--mouse-x');
+          card.style.removeProperty('--mouse-y');
+        });
+      });
+    });
+    // Revelar elementos
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+      }, 100);
+    });
+  </script>
+</body></html>
