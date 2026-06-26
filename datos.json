@@ -1,0 +1,319 @@
+{
+  "sitio": {
+    "titulo": "Portafolio de Inversión · Erik Hernández",
+    "subtitulo": "Cinco proyectos reales en Veracruz y Campeche, con números honestos (incluido el escenario que puede perder).",
+    "fecha": "2026-06-25",
+    "intro": "<p>Cada proyecto tiene su <b>corrida financiera</b> (inversión, gastos, retorno y escenarios) calculada con un modelo determinista. Usamos semáforos de confianza: <span class='badge b-green'>🟢 verificado</span> <span class='badge b-yellow'>🟡 por confirmar</span> <span class='badge b-red'>🔴 estimación</span>. Moneda: pesos mexicanos (MXN).</p>",
+    "contacto": {
+      "nombre": "Erik Hernández",
+      "email": "erikjosehernandez@gmail.com",
+      "whatsapp": ""
+    }
+  },
+  "proyectos": [
+    {
+      "slug": "agtech-cultivo-ia",
+      "emoji": "🌱",
+      "nombre": "AgTech: Cultivo de Precisión con IA",
+      "tagline": "Sistema de sensores + IA que controla clima, riego y detecta plagas en agricultura protegida legal (tomate, fresa, lechuga). Mercado virgen en Veracruz.",
+      "ubicacion": "Cardel, Veracruz · mercado: agricultura protegida de México",
+      "estado": {"texto": "🟡 Proyecto nuevo", "clase": "b-yellow"},
+      "kpis": [
+        {"valor": "$111,100", "etiqueta": "Inversión (MXN)"},
+        {"valor": "108%", "etiqueta": "TIR anual (base)"},
+        {"valor": "19 meses", "etiqueta": "Recuperas (payback)"},
+        {"valor": "+$251k", "etiqueta": "VAN a 3 años"}
+      ],
+      "resumen": "<p>Un negocio de <b>tecnología</b>: vendemos un sistema de <b>sensores + inteligencia artificial</b> que automatiza un invernadero (controla temperatura, humedad, riego y detecta plagas con una cámara). El modelo combina <b>venta del equipo instalado</b> (gancho) con una <b>suscripción mensual de la IA</b> (la ganancia real, que se acumula mes a mes). Aplica a cualquier cultivo legal: tomate, fresa, chile, lechuga, viveros.</p>",
+      "secciones": [
+        {"titulo": "La oportunidad (mercado virgen)", "html": "<p>Veracruz tiene apenas <b>726 hectáreas</b> de agricultura protegida en <b>1,129 unidades pequeñas</b> (0.64 ha en promedio), y casi <b>nada está tecnificado</b>. El AgTech en México crece <b>9–16% al año</b>. Es decir: mercado incipiente, fragmentado y con poca competencia tecnificada → terreno virgen para entrar primero. Posible aliado técnico: el Tecnológico de Úrsulo Galván (carretera Cardel–Chachalacas), que investiga cultivos protegidos.</p>"},
+        {"titulo": "Cómo gana dinero", "html": "<ul><li>Equipo instalado: <b>~$20,000–$45,000</b> por sistema (🔴 estimación, cotizar) — vendido casi a costo, es el gancho.</li><li>Suscripción de IA: <b>~$500–$1,500/mes</b> por cliente — margen alto (65–75%) e <b>ingreso recurrente</b> que crece con cada cliente nuevo.</li></ul><p>El patrón ganador de las AgTech de Latinoamérica no es vender fierros, sino la <b>suscripción</b>. Costos de operación casi $0 (nube gratis Oracle Always Free + software libre).</p>"},
+        {"titulo": "⚖️ Nota legal importante (cannabis)", "html": "<div class='alerta'>El sistema se demuestra y se vende para <b>cultivos legales sin estigma</b> (tomate, fresa, chile, lechuga). El <b>cannabis NO se usa como demostración comercial</b>: tu permiso COFEPRIS es solo para <b>autoconsumo personal</b>, y usarlo como argumento de negocio lo excede legalmente y puede hacer que <b>bancos e inversionistas rechacen todo el proyecto</b>. El cannabis queda estrictamente como autoconsumo personal tuyo, nunca en el pitch.</div>"}
+      ],
+      "finanzas": {
+        "capex": [
+          {"concepto": "Equipo de taller de electrónica + herramienta", "monto": 8000},
+          {"concepto": "Sistema demostrador completo (para clientes)", "monto": 14000},
+          {"concepto": "Inventario de componentes (stock inicial)", "monto": 25000},
+          {"concepto": "Desarrollo de software/IA + web + dominio", "monto": 12000},
+          {"concepto": "Alta legal (S.A.S.) + marketing de lanzamiento", "monto": 12000},
+          {"concepto": "Capital de trabajo", "monto": 30000},
+          {"concepto": "Reserva de imprevistos (10%)", "monto": 10100}
+        ],
+        "capex_total": 111100,
+        "opex": [
+          {"concepto": "Retiro del fundador (técnico/desarrollador)", "monto": 12000},
+          {"concepto": "Conectividad IoT + nube + dominio", "monto": 1000},
+          {"concepto": "Gasolina y visitas a clientes", "monto": 2000},
+          {"concepto": "Contador", "monto": 800},
+          {"concepto": "Marketing + herramientas de software", "monto": 1500},
+          {"concepto": "Misceláneos / taller", "monto": 700}
+        ],
+        "opex_total": 18000,
+        "punto_equilibrio": 28571,
+        "escenarios": [
+          {"nombre": "🔴 Pesimista", "clase": "b-red", "van": -229782, "tir": -0.621, "payback": "No se recupera"},
+          {"nombre": "🟡 Base", "clase": "b-yellow", "van": 250641, "tir": 1.076, "payback": 19},
+          {"nombre": "🟢 Optimista", "clase": "b-green", "van": 918379, "tir": 4.568, "payback": 9}
+        ],
+        "nota": "🟡 El precio de venta del equipo y de la suscripción son <b>estimaciones</b> (el B2B mexicano no publica precios): hay que cotizar 2–3 reales antes de fijarlos. El negocio depende de conseguir clientes que paguen suscripción (ingreso recurrente).",
+        "estructura": {
+          "prestamo": "Préstamo de $111,100 al 22% anual a 30 meses ≈ $4,849/mes.",
+          "socio": "Socio capitalista por ~40% de participación."
+        }
+      },
+      "riesgos": [
+        "🔴 <b>Precio por validar:</b> cotizar 2–3 precios reales de equipo y suscripción antes de comprometer cifras.",
+        "🔴 <b>Poder adquisitivo del agricultor chico:</b> apuntar a mediano productor y cooperativas; ofrecer suscripción/leasing en vez de pago grande.",
+        "🔴 <b>Gigantes (Priva, Ridder):</b> no competir de frente; atender el nicho pequeño-mediano que ellos ignoran.",
+        "🔴 <b>Técnico:</b> sensores se corroen y se descalibran; si una falla daña la cosecha del cliente hay responsabilidad → fail-safe, contrato con tope de responsabilidad y seguro.",
+        "🟡 <b>Todo depende del fundador (bus factor 1):</b> documentar a disco y no prometer soporte 24/7 en solitario."
+      ],
+      "por_que": [
+        "Mercado virgen en Veracruz con crecimiento de dos dígitos anual.",
+        "Ingreso recurrente (suscripción) que crece con cada cliente.",
+        "Costos de operación casi $0 (nube gratis + software libre).",
+        "La tecnología sirve para cualquier cultivo legal → escalable."
+      ]
+    },
+    {
+      "slug": "impresion-3d",
+      "emoji": "🖨️",
+      "nombre": "Impresión 3D Cardel",
+      "tagline": "Servicio de impresión 3D para prototipos y piezas a la medida (B2B) en Ciudad Cardel — el único en el municipio.",
+      "ubicacion": "Ciudad Cardel, La Antigua, Veracruz",
+      "estado": {"texto": "🟢 Listo para presentar", "clase": "b-green"},
+      "kpis": [
+        {"valor": "$231,000", "etiqueta": "Inversión (MXN)"},
+        {"valor": "131%", "etiqueta": "TIR anual (base)"},
+        {"valor": "17 meses", "etiqueta": "Recuperas (payback)"},
+        {"valor": "+$444k", "etiqueta": "VAN a 3 años"}
+      ],
+      "resumen": "<p>Una <b>“papelería de piezas a la medida”</b>: el cliente trae una idea o un dibujo y se la entregamos impresa en 3D (plástico o resina). Enfoque B2B: talleres, ingenios cañeros, el puerto, diseñadores y arquitectos. Arranca en casa (etapa piloto, sin renta) para reducir riesgo. <b>No hay ningún taller de impresión 3D en el municipio</b> — ventaja de ser el primero.</p>",
+      "secciones": [
+        {"titulo": "La oportunidad", "html": "<p>Cardel es el cruce de caminos del centro de Veracruz: a 30 min del puerto, cerca de la CFE de Laguna Verde, ingenios azucareros y el corredor industrial. Muchos negocios necesitan refacciones discontinuadas, prototipos y piezas especiales y hoy tienen que pedirlas a Veracruz o Xalapa (30–90 min). Nosotros las hacemos local y rápido.</p>"},
+        {"titulo": "Cómo gana dinero", "html": "<ul><li>Piezas y refacciones a la medida: <b>$150–$1,200</b> por pieza.</li><li>Prototipos y maquetas para diseñadores/arquitectos: <b>$250–$1,500</b>.</li><li>Lotes para ingenios y puerto: <b>$300–$3,000</b>.</li></ul><p>Margen bruto operativo alto (~82%); el costo variable de material es ~18% de la venta.</p>"}
+      ],
+      "finanzas": {
+        "capex": [
+          {"concepto": "Equipo: impresora FDM + resina + post-proceso", "monto": 45000},
+          {"concepto": "Acondicionamiento del taller en casa", "monto": 15000},
+          {"concepto": "Alta legal, contador, e.firma, permisos", "monto": 18000},
+          {"concepto": "Marketing de lanzamiento", "monto": 12000},
+          {"concepto": "Capital de trabajo inicial", "monto": 35000},
+          {"concepto": "Equipo Etapa 2 (mes 6, para crecer)", "monto": 85000},
+          {"concepto": "Reserva de imprevistos (10%)", "monto": 21000}
+        ],
+        "capex_total": 231000,
+        "opex": [
+          {"concepto": "Sueldo/retiro del fundador", "monto": 13000},
+          {"concepto": "Contador", "monto": 1500},
+          {"concepto": "Internet y teléfono", "monto": 700},
+          {"concepto": "Energía eléctrica (CFE, por confirmar 🔴)", "monto": 1200},
+          {"concepto": "Marketing continuo", "monto": 2500},
+          {"concepto": "Mantenimiento y refacciones", "monto": 1200},
+          {"concepto": "Misceláneos", "monto": 900}
+        ],
+        "opex_total": 21000,
+        "punto_equilibrio": 26250,
+        "escenarios": [
+          {"nombre": "🔴 Pesimista", "clase": "b-red", "van": -123253, "tir": -0.075, "payback": "No se recupera"},
+          {"nombre": "🟡 Base", "clase": "b-yellow", "van": 443796, "tir": 1.308, "payback": 17},
+          {"nombre": "🟢 Optimista", "clase": "b-green", "van": 1206518, "tir": 4.27, "payback": 10}
+        ],
+        "nota": "🟢 Negocio robusto: aguanta una caída de 20% en ventas o un encarecimiento de 30% del equipo importado y sigue siendo positivo. El equipo es revendible (el riesgo es comercial, no de capital).",
+        "estructura": {
+          "prestamo": "Préstamo del socio con interés y plazo a convenir (el equipo sirve de garantía).",
+          "socio": "Socio capitalista a cambio de un % de participación; al volverse sociedad se ajusta el régimen fiscal."
+        }
+      },
+      "riesgos": [
+        "🟡 <b>Demanda B2B:</b> los clientes no llegan solos. Mitigación: salir a buscar cliente por cliente, 3–6 meses de validación.",
+        "🟡 <b>Diseño CAD:</b> capacitación en FreeCAD/Tinkercad + aceptar archivos del cliente + alianza con un diseñador por comisión.",
+        "🟡 <b>Tipo de cambio:</b> equipo importado; cotizar en MXN y cuidar el margen.",
+        "🟢 <b>Propiedad intelectual:</b> política de no imprimir piezas de seguridad ni patentadas vigentes."
+      ],
+      "por_que": [
+        "Único taller de impresión 3D en el municipio (primero en llegar).",
+        "Acceso a 4 motores económicos: puerto, CFE, ingenios cañeros, corredor industrial.",
+        "Bajo riesgo de capital: arranca en casa y el equipo es revendible.",
+        "Dossier 100% completo (11 sesiones de trabajo)."
+      ]
+    },
+    {
+      "slug": "mercadito",
+      "emoji": "🥤",
+      "nombre": "Mercadito Fin de Semana",
+      "tagline": "Puesto de bebidas frías y antojitos junto al baño de un tianguis nuevo, con agua propia de purificadora.",
+      "ubicacion": "Tianguis nuevo (sáb-dom), Ciudad Cardel, Veracruz",
+      "estado": {"texto": "🟡 Listo (falta validar demanda)", "clase": "b-yellow"},
+      "kpis": [
+        {"valor": "$5,900", "etiqueta": "Inversión (MXN)"},
+        {"valor": "$3,469/mes", "etiqueta": "Ganancia (base)"},
+        {"valor": "~1.7 meses", "etiqueta": "Recuperas"},
+        {"valor": "58%", "etiqueta": "Margen bruto"}
+      ],
+      "resumen": "<p>Un puesto de <b>aguas frescas, raspados, refrescos y antojitos</b> en un mercadito nuevo de fin de semana. Dos ventajas difíciles de copiar: (1) está <b>junto al baño</b> —punto de paso obligado donde se forman filas de gente con calor y sed— y (2) usamos <b>agua propia de purificadora</b>, lo que baja el costo y resuelve la sanidad.</p>",
+      "secciones": [
+        {"titulo": "Por qué funciona", "html": "<p>El calor de Veracruz + un punto de paso obligado = compra por impulso. El agua propia sube el margen de las aguas frescas y raspados a 65–75%. Inversión mínima y recuperación muy rápida.</p>"},
+        {"titulo": "El futuro (Fase 2)", "html": "<p>Más adelante se puede <b>vender agua envasada/garrafón</b> (margen 65–73%), pero solo con los permisos en regla (COFEPRIS, análisis de laboratorio, NOM-201). Se entra a la Fase 2 cuando los papeles estén listos.</p>"}
+      ],
+      "finanzas": {
+        "capex": [
+          {"concepto": "Equipo del puesto (vitrolero, hielera, mesa, sombrilla, raspadera)", "monto": 4900},
+          {"concepto": "Primer surtido de insumos", "monto": 1000}
+        ],
+        "capex_total": 5900,
+        "opex": [
+          {"concepto": "Hielo (mayoreo)", "monto": 250},
+          {"concepto": "Transporte y mantenimiento de equipo", "monto": 200},
+          {"concepto": "Consumibles (vasos, tapas, bolsas)", "monto": 350},
+          {"concepto": "Cuota de piso (por confirmar 🔴)", "monto": 160}
+        ],
+        "opex_total": 960,
+        "punto_equilibrio": 824,
+        "escenarios": [
+          {"nombre": "🔴 Pesimista (25 clientes/día)", "clase": "b-red", "van": "—", "tir": "N/A", "payback": "Pierde ~$61/mes"},
+          {"nombre": "🟡 Probable (55 clientes/día)", "clase": "b-yellow", "van": "+$3,469/mes", "tir": "N/A", "payback": "~7–8 findes"},
+          {"nombre": "🟢 Lleno (100 clientes/día)", "clase": "b-green", "van": "+$10,024/mes", "tir": "N/A", "payback": "~2.5 findes"}
+        ],
+        "nota": "La TIR no aplica (inversión muy chica + retorno rápido): lo que manda es la <b>ganancia mensual</b> y el <b>payback</b>. Punto de equilibrio: ~21 clientes/día (≈ $824 de venta por fin de semana).",
+        "estructura": {
+          "prestamo": "La inversión es tan baja ($5,900) que normalmente no requiere socio capitalista.",
+          "socio": "Si se busca socio, sería para acelerar la Fase 2 (agua envasada)."
+        }
+      },
+      "riesgos": [
+        "🔴 <b>Demanda sin medir:</b> las cifras son estimaciones de tianguis en general. Acción clave: contar clientes reales 3–4 fines de semana antes de invertir.",
+        "🟡 <b>Cuota de piso cara:</b> si sube, la ganancia base baja. Confirmar el costo real en Cardel.",
+        "🟡 <b>Ubicación junto al baño:</b> depende de cerrarla por escrito y de que esté bien ventilada."
+      ],
+      "por_que": [
+        "Inversión mínima ($5,900) y recuperación muy rápida (~1.7 meses).",
+        "Dos ventajas propias: la ubicación (Cachetines maneja los baños) y el agua de purificadora.",
+        "Riesgo de capital bajo: el equipo no se pierde si no funciona."
+      ]
+    },
+    {
+      "slug": "taller-motos",
+      "emoji": "🏍️",
+      "nombre": "Taller de Motos con Convenios",
+      "tagline": "Taller de mantenimiento de motos en Cardel, con ingreso recurrente vía convenios con flotas de reparto y renting.",
+      "ubicacion": "Ciudad Cardel, La Antigua, Veracruz",
+      "estado": {"texto": "🟡 Proyecto nuevo", "clase": "b-yellow"},
+      "kpis": [
+        {"valor": "$146,300", "etiqueta": "Inversión (MXN)"},
+        {"valor": "36%", "etiqueta": "TIR anual (base)"},
+        {"valor": "27 meses", "etiqueta": "Recuperas (payback)"},
+        {"valor": "+$64k", "etiqueta": "VAN a 3 años"}
+      ],
+      "resumen": "<p>Un taller de motos chico (1 bahía, 1 mecánico + el fundador) que combina dos ingresos: el <b>servicio al público</b> (repartidores y particulares) y, sobre todo, <b>convenios de mantenimiento con flotas de reparto y empresas de renting</b> (delivery), que dan ingreso recurrente mes a mes.</p>",
+      "secciones": [
+        {"titulo": "El mercado (Veracruz está fuerte)", "html": "<ul><li>México: ~7.8 millones de motos registradas; Veracruz <b>383,839 motos</b>.</li><li>Veracruz es el <b>3er estado</b> con más repartidores en moto (28,800 personas).</li><li>Desde 2026 toda moto en Veracruz debe portar placa → se formaliza el parque y sube la demanda de servicio.</li><li>El boom del delivery = motos de alto kilometraje que necesitan servicio frecuente (mejor cliente que la moto particular).</li></ul>"},
+        {"titulo": "El convenio (lo realista, con honestidad)", "html": "<p>Las <b>financieras NO pagan</b> el mantenimiento de su bolsillo: obligan a hacerlo en su red y lo venden dentro del crédito. El camino realista de ingreso recurrente son las <b>flotas y empresas de renting</b> (Bikamoto, IZA) que necesitan talleres aliados regionales. Ahí entra este taller: ser el taller subcontratado de una flota en la zona Cardel–Veracruz.</p><p>Una flota de 30–50 motos a $400–600 por moto/mes puede dejar <b>$12,000–$30,000/mes recurrentes</b> (🔴 estimación, sin tarifa pública).</p>"}
+      ],
+      "finanzas": {
+        "capex": [
+          {"concepto": "Equipo y herramienta (elevador, compresor, scanner, llantas, banco)", "monto": 55000},
+          {"concepto": "Adecuación del local", "monto": 18000},
+          {"concepto": "Inventario inicial (aceites, filtros, balatas)", "monto": 18000},
+          {"concepto": "Alta legal + letrero + marketing inicial", "monto": 12000},
+          {"concepto": "Capital de trabajo (~2 meses)", "monto": 30000},
+          {"concepto": "Reserva de imprevistos (10%)", "monto": 13300}
+        ],
+        "capex_total": 146300,
+        "opex": [
+          {"concepto": "Renta de local pequeño (Cardel)", "monto": 9000},
+          {"concepto": "Sueldo mecánico + carga social (IMSS)", "monto": 12000},
+          {"concepto": "Retiro del fundador (gestor)", "monto": 8000},
+          {"concepto": "Luz y agua", "monto": 2000},
+          {"concepto": "Internet, papelería, publicidad", "monto": 1200},
+          {"concepto": "Contador", "monto": 1500}
+        ],
+        "opex_total": 33700,
+        "punto_equilibrio": 49559,
+        "escenarios": [
+          {"nombre": "🔴 Pesimista", "clase": "b-red", "van": -432277, "tir": "negativa", "payback": "No se recupera"},
+          {"nombre": "🟡 Base", "clase": "b-yellow", "van": 64190, "tir": 0.363, "payback": 27},
+          {"nombre": "🟢 Optimista", "clase": "b-green", "van": 686758, "tir": 2.46, "payback": 12}
+        ],
+        "nota": "🟡 La clave es el <b>volumen</b>: sin al menos un convenio de flota que cubra el OPEX, el taller apenas equilibra (escenario pesimista pierde). Con 1–2 convenios firmados, el negocio despega.",
+        "estructura": {
+          "prestamo": "Préstamo de $146,300 al 22% anual a 30 meses ≈ $6,385/mes.",
+          "socio": "Socio capitalista por ~40% de participación."
+        }
+      },
+      "riesgos": [
+        "🔴 <b>Dependencia de pocos clientes:</b> si 1–2 flotas son el 60–80% del ingreso y una se va, duele. Mitigación: combinar flotas + público particular.",
+        "🟢 <b>Competencia informal:</b> abundan talleres “de banqueta”. Diferenciador: formalidad, garantía, servicio a flotas.",
+        "🟡 <b>Márgenes apretados</b> por volumen de flota; cuidar precios.",
+        "🔴 <b>Capital de trabajo:</b> refacciones se pagan al contado y las flotas pagan a 30–60 días."
+      ],
+      "por_que": [
+        "Mercado grande y en auge (384k motos en Veracruz, 3er estado en repartidores).",
+        "Ingreso recurrente real vía convenios de flota/renting.",
+        "La placa obligatoria 2026 formaliza el parque y sube la demanda de servicio.",
+        "Inversión moderada ($146k) con payback de ~2 años en el caso base."
+      ]
+    },
+    {
+      "slug": "acuicola",
+      "emoji": "🐟",
+      "nombre": "Acuícola Lomas de San Román",
+      "tagline": "Granja de peces ya construida (7 estanques, 67,000 m² de agua) en Campeche. Corrida preliminar.",
+      "ubicacion": "Nuevo Progreso, Carmen, Campeche",
+      "estado": {"texto": "🔴 Preliminar (resolver permisos)", "clase": "b-red"},
+      "kpis": [
+        {"valor": "$704,000", "etiqueta": "Inversión estimada (MXN)"},
+        {"valor": "17%", "etiqueta": "TIR anual (base)"},
+        {"valor": "67,000 m²", "etiqueta": "Espejo de agua"},
+        {"valor": "20 ton/año", "etiqueta": "Capacidad legal (RNPA)"}
+      ],
+      "resumen": "<p>Una granja acuícola <b>ya excavada y operando</b>: 7 estanques con 67,000 m² de espejo de agua, en policultivo rústico (tilapia/mojarra, castarrica, pejelagarto). La gran ventaja es que <b>la inversión más cara —el movimiento de tierras— ya está hecha</b>, y el terreno tiene escritura limpia (sirve de garantía). Esta corrida es <b>preliminar</b>.</p>",
+      "secciones": [
+        {"titulo": "Lo que ya existe (la fortaleza)", "html": "<ul><li>7 estanques excavados = 67,000 m² de agua (coincide exacto con el registro federal RNPA).</li><li>Escritura pública limpia, RFC activo, padrón SADER y RNPA vigente (20 ton/año).</li><li>El pejelagarto respira aire → no exige aireación eléctrica cara (el predio no tiene CFE).</li></ul>"},
+        {"titulo": "El potencial (y por qué es preliminar)", "html": "<p>A la capacidad legal actual (20 ton/año) el negocio <b>apenas equilibra</b>. El verdadero valor aparece al <b>ampliar el RNPA</b> hacia el techo biológico del predio (60+ ton/año), lo que multiplicaría el retorno. Antes de eso hay que resolver el <b>MIA de SEMARNAT</b> (está junto a humedal) y unificar dos modelos financieros previos que tienen cifras distintas.</p>"}
+      ],
+      "finanzas": {
+        "capex": [
+          {"concepto": "Bombeo y energía solar básica", "monto": 100000},
+          {"concepto": "Crías iniciales (policultivo)", "monto": 120000},
+          {"concepto": "Adecuación de estanques y equipo", "monto": 120000},
+          {"concepto": "MIA SEMARNAT + permisos ambientales", "monto": 150000},
+          {"concepto": "Capital de trabajo (alimento inicial)", "monto": 150000},
+          {"concepto": "Reserva de imprevistos (10%)", "monto": 64000}
+        ],
+        "capex_total": 704000,
+        "opex": [
+          {"concepto": "Mano de obra operativa (familia / 1-2 personas)", "monto": 12000},
+          {"concepto": "Mantenimiento, transporte, combustible", "monto": 5000},
+          {"concepto": "Contador", "monto": 1500}
+        ],
+        "opex_total": 18500,
+        "punto_equilibrio": 34259,
+        "escenarios": [
+          {"nombre": "🔴 Pesimista", "clase": "b-red", "van": -575152, "tir": -0.173, "payback": "No se recupera"},
+          {"nombre": "🟡 Base", "clase": "b-yellow", "van": -14485, "tir": 0.172, "payback": 44},
+          {"nombre": "🟢 Optimista", "clase": "b-green", "van": 477699, "tir": 0.439, "payback": 30}
+        ],
+        "nota": "🔴 <b>Corrida PRELIMINAR</b> a la escala legal actual (20 ton/año). Supuestos por validar en campo (precio a pie de productor, costos de alimento). El proyecto se vuelve atractivo al ampliar producción; hoy tiene pendientes regulatorios (MIA SEMARNAT) que deben resolverse antes de presentarlo en firme.",
+        "estructura": {
+          "prestamo": "Crédito agropecuario (FIRA/FND) ~18% a 48 meses ≈ $20,700/mes; el terreno con escritura limpia sirve de garantía.",
+          "socio": "Socio por ~35% de participación, idealmente para financiar la ampliación del RNPA."
+        }
+      },
+      "riesgos": [
+        "🔴 <b>MIA SEMARNAT:</b> el estanque está junto a humedal/manglar; el permiso ambiental es el bloqueador #1 (costo y 6–12 meses).",
+        "🔴 <b>Modelos en conflicto:</b> hay dos versiones financieras previas ($1.9M vs $3.95M) que deben unificarse antes de presentar a un inversionista serio.",
+        "🟡 <b>Precios por confirmar:</b> validar el precio a pie de productor con acopiadores locales.",
+        "🟢 <b>Activo tangible:</b> terreno con escritura limpia = garantía sólida (reduce el riesgo de capital)."
+      ],
+      "por_que": [
+        "La inversión más cara (los estanques) ya está hecha.",
+        "Terreno con escritura limpia = garantía para el inversionista.",
+        "Mercado de pescado robusto (Tabasco, Campeche, Quintana Roo).",
+        "Gran potencial de crecimiento al ampliar el RNPA."
+      ]
+    }
+  ]
+}
