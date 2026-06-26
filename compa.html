@@ -3,378 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🖨️ Manual del Pendejo · Impresión 3D para mi compa</title>
+<title>🖍️ Impresión 3D · explicada con dibujitos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Comic+Neue:ital,wght@0,400;0,700;1,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
-  :root{ --ink:#0d0b14; --pink:#ff4d8d; --orange:#ff9a3d; --violet:#a855f7; --green:#34d399; --cyan:#22d3ee; --amber:#fbbf24; }
+  :root{ --chalk:#f4f1e8; --pink:#ff7eb6; --yellow:#ffd23f; --green:#7be495; --blue:#6ec6ff; --orange:#ff9f5a; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-  body{ font-family:'Comic Neue','Comic Sans MS',cursive; background:var(--ink); color:#f4f0ff; overflow-x:hidden; }
-  h1,h2,h3,.fred{ font-family:'Fredoka',sans-serif; }
-  .mono{ font-family:'JetBrains Mono',monospace; }
+  body{ font-family:'Patrick Hand',cursive; background:#15161d; color:var(--chalk); overflow-x:hidden;
+    background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px); background-size:22px 22px; }
+  .hand{ font-family:'Caveat',cursive; }
+  .wrap{ max-width:760px; margin:0 auto; padding:14px 16px 70px; position:relative; z-index:2; }
 
-  /* Fondo animado */
-  #bg{ position:fixed; inset:0; z-index:0; pointer-events:none; }
-  .orb{ position:fixed; border-radius:50%; filter:blur(90px); opacity:.5; z-index:0; pointer-events:none; animation:flota 14s ease-in-out infinite; }
-  .o1{ width:420px;height:420px; background:var(--pink); top:-8%; left:-6%; }
-  .o2{ width:380px;height:380px; background:var(--violet); top:35%; right:-10%; animation-delay:-5s; }
-  .o3{ width:340px;height:340px; background:var(--cyan); bottom:-6%; left:25%; animation-delay:-9s; }
-  @keyframes flota{ 0%,100%{ transform:translate(0,0) scale(1);} 50%{ transform:translate(30px,-40px) scale(1.12);} }
-  #confeti{ position:fixed; inset:0; z-index:60; pointer-events:none; }
+  /* trazo que se dibuja solo */
+  .doodle path,.doodle line,.doodle circle,.doodle rect,.doodle polyline,.doodle ellipse{
+    stroke-dasharray:1; stroke-dashoffset:1; }
+  .doodle.drawn path,.doodle.drawn line,.doodle.drawn circle,.doodle.drawn rect,.doodle.drawn polyline,.doodle.drawn ellipse{
+    animation:draw 1.3s ease forwards; }
+  .doodle.drawn *:nth-child(2){ animation-delay:.18s; } .doodle.drawn *:nth-child(3){ animation-delay:.36s; }
+  .doodle.drawn *:nth-child(4){ animation-delay:.5s; } .doodle.drawn *:nth-child(5){ animation-delay:.64s; }
+  .doodle.drawn *:nth-child(6){ animation-delay:.78s; } .doodle.drawn *:nth-child(7){ animation-delay:.9s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  .doodle{ display:block; margin:0 auto; }
 
-  .wrap{ position:relative; z-index:2; max-width:880px; margin:0 auto; padding:20px 16px 60px; }
+  /* secciones */
+  .scene{ min-height:62vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 6px; gap:6px; }
+  .big{ font-family:'Caveat'; font-weight:700; font-size:clamp(34px,9vw,64px); line-height:1; }
+  .word-pink{color:var(--pink)} .word-yellow{color:var(--yellow)} .word-green{color:var(--green)} .word-blue{color:var(--blue)} .word-orange{color:var(--orange)}
+  .lil{ font-size:clamp(17px,4.4vw,22px); color:#cfcabb; }
+  .tiny{ font-size:clamp(14px,3.6vw,17px); color:#8f8a7d; font-style:italic; }
+  .pop{ display:inline-block; animation:pop .5s ease both; }
+  @keyframes pop{ from{ transform:scale(.4); opacity:0;} to{ transform:scale(1); opacity:1;} }
 
-  /* LOADER */
-  #loader{ position:fixed; inset:0; z-index:200; background:var(--ink); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; padding:20px; transition:opacity .6s; }
-  #loader h2{ font-size:clamp(20px,5vw,30px); color:var(--amber); }
-  #loadbar{ width:min(420px,86vw); height:26px; border:3px solid #fff; border-radius:30px; overflow:hidden; background:#1a1622; }
-  #loadbar > div{ height:100%; width:0; background:linear-gradient(90deg,var(--pink),var(--orange)); }
-  #loadtxt{ font-family:'JetBrains Mono'; color:#9aa; font-size:14px; min-height:20px; }
+  .float{ animation:fl 4s ease-in-out infinite; } @keyframes fl{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .wig{ animation:wig 3s ease-in-out infinite; transform-origin:center; } @keyframes wig{ 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
 
-  /* HERO */
-  .hero{ text-align:center; padding:26px 16px 8px; }
-  .glitch{ font-size:clamp(30px,7vw,58px); font-weight:700; line-height:1.05; letter-spacing:-1px;
-    background:linear-gradient(90deg,var(--pink),var(--orange),var(--amber)); -webkit-background-clip:text; background-clip:text; color:transparent;
-    text-shadow:0 0 30px rgba(255,77,141,.35); }
-  .sub{ margin-top:14px; font-weight:700; font-size:clamp(15px,3.4vw,19px); color:#cbb6ff; }
-  .typed{ font-family:'JetBrains Mono'; color:var(--green); font-size:clamp(13px,3vw,16px); margin-top:10px; min-height:24px; }
+  .flecha{ margin:2px auto; opacity:.85; }
 
-  /* Impresora animada */
-  .printer{ margin:24px auto 6px; width:230px; max-width:80vw; }
-  .printer svg{ width:100%; height:auto; display:block; }
-  @keyframes cabezal{ 0%,100%{ transform:translateX(-46px);} 50%{ transform:translateX(46px);} }
-  @keyframes subepieza{ 0%{ transform:translateY(0); } 100%{ transform:translateY(-46px);} }
-  .cabezal{ animation:cabezal 1.6s ease-in-out infinite; }
-  .pieza{ transform-origin:center bottom; animation:subepieza 6s linear infinite alternate; }
+  /* divisor garabato */
+  hr.g{ border:none; height:14px; background:none; margin:0; }
 
-  /* Tarjetas */
-  .card{ background:linear-gradient(160deg,#1b1626,#140f1d); border:2px solid rgba(255,255,255,.08); border-radius:22px; padding:24px 22px; margin:22px 0; box-shadow:0 18px 50px rgba(0,0,0,.5); position:relative; }
-  .card::after{ content:""; position:absolute; inset:0; border-radius:22px; pointer-events:none; box-shadow:inset 0 0 0 1px rgba(255,255,255,.04); }
-  .tag{ display:inline-block; font-family:'Fredoka'; font-weight:700; font-size:12px; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:30px; margin-bottom:12px; }
-  .t-pink{ background:rgba(255,77,141,.16); color:var(--pink); } .t-violet{ background:rgba(168,85,247,.16); color:var(--violet); }
-  .t-green{ background:rgba(52,211,153,.16); color:var(--green); } .t-amber{ background:rgba(251,191,36,.16); color:var(--amber); }
-  .card h2{ font-size:clamp(20px,4.4vw,26px); margin-bottom:12px; }
-  .card p{ font-size:16px; color:#e7defc; margin-bottom:10px; }
-  .num-bola{ position:absolute; top:-20px; left:-12px; width:50px; height:50px; border-radius:14px; transform:rotate(-10deg);
-    background:linear-gradient(135deg,var(--violet),var(--pink)); display:grid; place-items:center; font-family:'Fredoka'; font-weight:700; font-size:24px; color:#fff; box-shadow:0 8px 20px rgba(168,85,247,.5); }
+  /* tarjeta mini para listas visuales */
+  .row{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; margin-top:8px; }
+  .ico{ display:flex; flex-direction:column; align-items:center; gap:4px; width:120px; }
+  .ico span{ font-size:16px; color:#cfcabb; }
 
-  .analogia{ background:rgba(251,191,36,.07); border-left:4px solid var(--amber); border-radius:0 12px 12px 0; padding:12px 14px; margin:12px 0; font-weight:700; }
-  .analogia b{ color:var(--amber); }
-  .negro{ background:rgba(255,77,141,.06); border:1px dashed var(--pink); border-radius:12px; padding:12px 14px; margin:12px 0; color:#ffd6e6; font-style:italic; }
-  .negro::before{ content:"☠️ DATO CRUEL: "; font-family:'Fredoka'; font-style:normal; color:var(--pink); }
+  /* botones / input */
+  .btn{ font-family:'Caveat'; font-weight:700; font-size:24px; padding:8px 26px; border:3px solid var(--chalk); border-radius:40px 30px 40px 30px/30px 40px 30px 40px; background:transparent; color:var(--chalk); cursor:pointer; transition:.15s; }
+  .btn:hover{ background:var(--pink); border-color:var(--pink); color:#15161d; transform:rotate(-2deg) scale(1.05); }
+  input#nombre{ font-family:'Caveat'; font-weight:700; font-size:26px; text-align:center; background:transparent; border:none; border-bottom:4px dotted var(--yellow); color:var(--yellow); outline:none; width:min(300px,80vw); padding:4px; }
+  input#nombre::placeholder{ color:#6f6a5d; }
 
-  ul.lista{ list-style:none; } ul.lista li{ padding:7px 0 7px 30px; position:relative; font-size:16px; color:#e7defc; }
-  ul.lista li::before{ content:"💀"; position:absolute; left:0; font-size:14px; }
+  /* test */
+  .opt{ font-family:'Patrick Hand'; font-size:18px; display:block; width:100%; max-width:420px; margin:8px auto; padding:10px 16px; border:2px dashed #4a4636; border-radius:18px 12px 18px 12px; background:transparent; color:var(--chalk); cursor:pointer; transition:.15s; }
+  .opt:hover{ border-color:var(--green); transform:translateX(5px) rotate(-1deg); }
 
-  /* Medidor / contador */
-  .stat-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:14px 0; }
-  .stat{ background:#140f1d; border:2px solid rgba(255,255,255,.08); border-radius:16px; padding:14px 8px; text-align:center; }
-  .stat .n{ font-family:'Fredoka'; font-weight:700; font-size:clamp(22px,5vw,30px); background:linear-gradient(90deg,var(--pink),var(--orange)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .stat .l{ font-size:11px; color:#9aa; text-transform:uppercase; letter-spacing:.5px; margin-top:4px; }
-  .barra{ background:#0f0b16; border:3px solid rgba(255,255,255,.12); border-radius:30px; height:32px; overflow:hidden; margin-top:6px; }
-  .barra > div{ height:100%; width:0; background:repeating-linear-gradient(45deg,var(--pink),var(--pink) 14px,var(--orange) 14px,var(--orange) 28px); display:flex; align-items:center; justify-content:flex-end; padding-right:12px; color:#fff; font-weight:700; font-family:'Fredoka'; transition:width 2s cubic-bezier(.2,.9,.3,1); }
+  /* certificado */
+  #cert{ display:none; border:3px solid var(--yellow); border-radius:8px; padding:22px 16px; text-align:center; position:relative; transform:rotate(-1deg); background:rgba(255,210,63,.05); max-width:480px; margin:0 auto; }
+  #cert .nom{ font-family:'Caveat'; font-weight:700; font-size:clamp(28px,8vw,44px); color:var(--pink); margin:6px 0; }
+  #cert small{ color:#8f8a7d; }
 
-  /* Input nombre */
-  .namebox{ text-align:center; }
-  .namebox input{ font-family:'Fredoka'; font-weight:600; font-size:18px; padding:12px 16px; border-radius:14px; border:3px solid var(--violet); background:#0f0b16; color:#fff; text-align:center; outline:none; width:min(320px,80vw); }
-  .namebox input::placeholder{ color:#776; }
-
-  /* Botones */
-  .btn{ font-family:'Fredoka'; font-weight:700; font-size:17px; padding:13px 26px; border:none; border-radius:40px; cursor:pointer; color:#fff;
-    background:linear-gradient(135deg,var(--violet),var(--pink)); box-shadow:0 10px 26px rgba(168,85,247,.45); transition:transform .12s; }
-  .btn:hover{ transform:translateY(-3px) scale(1.03); } .btn:active{ transform:scale(.96); }
-  .btn.ghost{ background:transparent; border:2px solid rgba(255,255,255,.25); box-shadow:none; }
-  .center{ text-align:center; }
-
-  /* Test */
-  #qbox{ min-height:60px; }
-  .opt{ display:block; width:100%; text-align:left; margin:8px 0; padding:13px 16px; border-radius:14px; border:2px solid rgba(255,255,255,.1); background:#140f1d; color:#e7defc; font-family:'Comic Neue'; font-weight:700; font-size:15px; cursor:pointer; transition:.15s; }
-  .opt:hover{ border-color:var(--pink); transform:translateX(4px); }
-
-  /* Certificado */
-  #cert{ display:none; background:radial-gradient(circle at 50% 0%,#241a33,#140f1d); border:3px double var(--amber); border-radius:18px; padding:26px 20px; text-align:center; position:relative; overflow:hidden; }
-  #cert h3{ color:var(--amber); font-size:clamp(20px,5vw,28px); letter-spacing:1px; }
-  #cert .nom{ font-family:'Fredoka'; font-weight:700; font-size:clamp(24px,6vw,38px); margin:10px 0; background:linear-gradient(90deg,var(--pink),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  #cert .foot{ font-family:'JetBrains Mono'; font-size:12px; color:#9aa; margin-top:14px; }
-  .sello{ position:absolute; right:14px; bottom:14px; width:90px; height:90px; border:3px solid var(--pink); border-radius:50%; display:grid; place-items:center; color:var(--pink); font-family:'Fredoka'; font-weight:700; font-size:11px; text-align:center; transform:rotate(-16deg); opacity:.85; line-height:1.1; }
-
-  .cierre{ text-align:center; padding:30px 18px; }
-  .cierre h2{ font-size:clamp(24px,6vw,36px); color:var(--amber); margin-bottom:12px; }
-  .cierre p{ font-size:17px; font-weight:700; color:#e7defc; margin-bottom:8px; }
-  .mini{ text-align:center; color:#665; font-size:12px; font-style:italic; margin-top:30px; }
-  a.btn{ text-decoration:none; display:inline-block; }
+  #confeti{ position:fixed; inset:0; z-index:50; pointer-events:none; }
+  .mini{ text-align:center; color:#5a564a; font-size:13px; font-style:italic; margin-top:36px; }
 </style>
 </head>
 <body>
-
-<!-- LOADER -->
-<div id="loader">
-  <div style="font-size:46px">🧠🔍</div>
-  <h2>Escaneando el cerebro del sujeto...</h2>
-  <div id="loadbar"><div></div></div>
-  <div id="loadtxt">Iniciando...</div>
-</div>
-
-<canvas id="bg"></canvas>
-<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
 <canvas id="confeti"></canvas>
-
 <div class="wrap">
 
   <!-- HERO -->
-  <div class="hero">
-    <div class="tag t-amber" style="margin-bottom:18px">📕 Manual oficial · Edición para tontos</div>
-    <h1 class="glitch">LA IMPRESIÓN 3D<br>EXPLICADA PARA QUE NI TÚ TE PIERDAS</h1>
-    <p class="sub">Un documento científico dedicado a la única persona que necesita instrucciones para parpadear.</p>
-    <div class="typed" id="typed"></div>
+  <section class="scene">
+    <div class="hand big"><span class="word-pink">Impresión&nbsp;3D</span></div>
+    <svg class="doodle wig" width="150" height="120" viewBox="0 0 150 120" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect pathLength="1" x="20" y="22" width="110" height="74" rx="8"/>
+      <line pathLength="1" x1="35" y1="42" x2="115" y2="42"/>
+      <rect pathLength="1" x="64" y="34" width="22" height="16" rx="3" stroke="var(--pink)"/>
+      <polyline pathLength="1" points="71,50 79,50 75,58" stroke="var(--orange)"/>
+      <rect pathLength="1" x="58" y="74" width="34" height="14" rx="2" stroke="var(--green)"/>
+    </svg>
+    <div class="lil">Te lo explico... <span class="word-yellow">con dibujitos.</span> 🖍️</div>
+    <div class="tiny">(por si las moscas 🪰)</div>
+    <div class="tiny float" style="margin-top:26px">↓ baja despacito ↓</div>
+  </section>
 
-    <!-- Impresora animada -->
-    <div class="printer" aria-label="impresora imprimiendo">
-      <svg viewBox="0 0 220 200">
-        <rect x="20" y="20" width="180" height="150" rx="10" fill="#1b1626" stroke="#a855f7" stroke-width="3"/>
-        <line x1="40" y1="55" x2="180" y2="55" stroke="#473b5e" stroke-width="4"/>
-        <g class="cabezal">
-          <rect x="96" y="46" width="28" height="22" rx="4" fill="#ff4d8d"/>
-          <polygon points="104,68 116,68 110,80" fill="#ff9a3d"/>
-          <rect x="108" y="78" width="4" height="40" fill="#22d3ee" opacity=".7"/>
-        </g>
-        <rect x="60" y="140" width="100" height="14" rx="3" fill="#473b5e"/>
-        <g class="pieza"><rect x="86" y="118" width="48" height="24" rx="3" fill="#34d399"/></g>
-        <circle cx="40" cy="178" r="8" fill="#a855f7"/><circle cx="180" cy="178" r="8" fill="#a855f7"/>
-      </svg>
+  <!-- ¿QUÉ ES? -->
+  <section class="scene">
+    <svg class="doodle float" width="180" height="150" viewBox="0 0 180 150" fill="none" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect pathLength="1" x="24" y="26" width="132" height="92" rx="10"/>
+      <line pathLength="1" x1="44" y1="52" x2="136" y2="52"/>
+      <g class="cab"><rect pathLength="1" x="78" y="42" width="26" height="18" rx="3" stroke="var(--pink)"/></g>
+      <polyline pathLength="1" points="86,60 96,60 91,72" stroke="var(--orange)"/>
+      <rect pathLength="1" x="68" y="92" width="46" height="20" rx="3" stroke="var(--yellow)"/>
+      <line pathLength="1" x1="40" y1="128" x2="140" y2="128"/>
+    </svg>
+    <div class="big"><span class="word-green">Hace cosas</span></div>
+    <div class="lil">de plástico. De la nada. ✨</div>
+    <div class="tiny">capita... sobre capita... sobre capita.</div>
+  </section>
+
+  <!-- ¿QUÉ VENDEMOS? -->
+  <section class="scene">
+    <div class="big"><span class="word-blue">Vendemos piezas</span></div>
+    <div class="lil">que nadie más tiene 👇</div>
+    <div class="row" style="margin-top:14px">
+      <div class="ico">
+        <svg class="doodle" width="70" height="70" viewBox="0 0 70 70" fill="none" stroke="var(--pink)" stroke-width="3" stroke-linecap="round"><path pathLength="1" d="M20 50 C10 40 18 22 35 24 C52 26 56 44 46 50 C40 53 30 52 32 42 C34 36 42 38 40 44"/></svg>
+        <span>el clip roto 🚗</span>
+      </div>
+      <div class="ico">
+        <svg class="doodle" width="70" height="70" viewBox="0 0 70 70" fill="none" stroke="var(--yellow)" stroke-width="3" stroke-linecap="round"><rect pathLength="1" x="20" y="16" width="30" height="40" rx="4"/><circle pathLength="1" cx="35" cy="40" r="8"/><circle pathLength="1" cx="35" cy="25" r="3"/></svg>
+        <span>bocinas 🔊</span>
+      </div>
+      <div class="ico">
+        <svg class="doodle" width="70" height="70" viewBox="0 0 70 70" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round"><circle pathLength="1" cx="35" cy="35" r="14"/><circle pathLength="1" cx="35" cy="35" r="5"/><path pathLength="1" d="M35 14v8M35 48v8M14 35h8M48 35h8M21 21l6 6M49 49l-6-6M49 21l-6 6M21 49l6-6"/></svg>
+        <span>engranes ⚙️</span>
+      </div>
     </div>
-  </div>
+    <div class="tiny" style="margin-top:14px">como un OXXO 🏪 ...pero de piezas.</div>
+  </section>
 
-  <!-- NOMBRE -->
-  <div class="card namebox">
-    <div class="tag t-violet">Paso 0 · Identifícate, criatura</div>
-    <h2>¿Cómo te llamas, obra maestra de la naturaleza? 🦧</h2>
-    <p>Escribe tu nombre para que el insulto sea personalizado (es lo mínimo que mereces):</p>
-    <input id="nombre" placeholder="Tu nombre aquí, pendejo" maxlength="22" autocomplete="off">
-    <div style="margin-top:14px"><button class="btn" onclick="setNombre()">Registrar mi pendejez 📝</button></div>
-  </div>
-
-  <!-- MEDIDOR -->
-  <div class="card">
-    <div class="tag t-pink">Diagnóstico clínico</div>
-    <h3 style="font-size:20px;margin-bottom:6px">📊 Resultados del escaneo cerebral de <span class="nm" style="color:var(--cyan)">tu persona</span></h3>
-    <div class="stat-row">
-      <div class="stat"><div class="n" data-to="97">0</div><div class="l">% Pendejo</div></div>
-      <div class="stat"><div class="n" data-to="1">0</div><div class="l">Neurona activa</div></div>
-      <div class="stat"><div class="n" data-to="404">0</div><div class="l">Cerebro: not found</div></div>
+  <!-- ¿CÓMO GANAMOS? -->
+  <section class="scene">
+    <div class="big"><span class="word-orange">Así ganamos 💰</span></div>
+    <div class="row" style="margin-top:10px; align-items:center">
+      <div class="ico">
+        <svg class="doodle" width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linecap="round"><circle pathLength="1" cx="22" cy="14" r="7"/><path pathLength="1" d="M22 22v18M10 30h24M14 52l8-12 8 12"/></svg>
+        <span>trae idea</span>
+      </div>
+      <svg class="doodle flecha" width="46" height="26" viewBox="0 0 46 26" fill="none" stroke="var(--chalk)" stroke-width="3" stroke-linecap="round"><path pathLength="1" d="M4 13h32M28 5l10 8-10 8"/></svg>
+      <div class="ico">
+        <svg class="doodle" width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--pink)" stroke-width="3" stroke-linecap="round"><rect pathLength="1" x="14" y="16" width="32" height="28" rx="5"/><polyline pathLength="1" points="26,44 26,52 34,52 34,44"/></svg>
+        <span>imprime</span>
+      </div>
+      <svg class="doodle flecha" width="46" height="26" viewBox="0 0 46 26" fill="none" stroke="var(--chalk)" stroke-width="3" stroke-linecap="round"><path pathLength="1" d="M4 13h32M28 5l10 8-10 8"/></svg>
+      <div class="ico">
+        <svg class="doodle" width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--green)" stroke-width="3" stroke-linecap="round"><rect pathLength="1" x="10" y="20" width="40" height="22" rx="3"/><circle pathLength="1" cx="30" cy="31" r="6"/></svg>
+        <span>nos pagan</span>
+      </div>
     </div>
-    <div class="barra"><div id="barpend">97% 🫠</div></div>
-    <p style="margin-top:10px;font-style:italic;color:#9aa">Diagnóstico: operable, pero no vale la pena el quirófano.</p>
-  </div>
+    <div class="lil" style="margin-top:16px">Barato hacerlo. <span class="word-yellow">Caro venderlo.</span></div>
+    <div class="tiny">(la mate es fácil... tú confía 😉)</div>
+  </section>
 
-  <!-- PASO 1 -->
-  <div class="card">
-    <div class="num-bola">1</div>
-    <div class="tag t-violet">La maquinita</div>
-    <h2>¿Qué chingados es una impresora 3D?</h2>
-    <p>Es una máquina que <b>hace objetos de plástico de la nada</b>, capita sobre capita, hasta formar una pieza completa. No imprime hojas, genio: imprime <b>cosas reales</b> que puedes agarrar con esas manos que solo usas para tirar tu propia comida.</p>
-    <div class="analogia"><b>Piénsalo así:</b> es una <b>pistola de silicón mágica</b> 🔫 que dibuja un muñeco en el aire. O un pastel de mil capas 🎂, pero de plástico y sin que se te caiga la baba.</div>
-    <div class="negro">tu cerebro también se hizo capa por capa... solo que la máquina se quedó sin material a la mitad. 🧱❌</div>
-  </div>
+  <!-- ¿POR QUÉ JALA? -->
+  <section class="scene">
+    <svg class="doodle float" width="200" height="140" viewBox="0 0 200 140" fill="none" stroke="var(--yellow)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path pathLength="1" d="M16 110 C40 60 70 130 100 80 C130 40 160 100 186 60"/>
+      <path pathLength="1" d="M16 110 C40 60 70 130 100 80 C130 40 160 100 186 60 L186 124 L16 124 Z" stroke="none" fill="rgba(255,210,63,.05)"/>
+      <circle pathLength="1" cx="100" cy="78" r="9" stroke="var(--pink)"/>
+      <path pathLength="1" d="M100 60 a9 9 0 1 1 -.1 0 M100 78 L100 70" stroke="var(--pink)"/>
+    </svg>
+    <div class="big"><span class="word-yellow">Somos</span> <span class="word-pink">los únicos</span></div>
+    <div class="lil">en todo Cardel 🦗</div>
+    <div class="tiny">la competencia: 0. nadita.</div>
+  </section>
 
-  <!-- PASO 2 -->
-  <div class="card">
-    <div class="num-bola">2</div>
-    <div class="tag t-green">El negocio</div>
-    <h2>¿Y qué vamos a vender, <span class="nm">campeón</span>?</h2>
-    <p>Piezas <b>a la medida</b>. La gente trae lo que necesita y se lo hacemos. Como sastre, pero de plástico y sin pincharte el dedo.</p>
-    <ul class="lista">
-      <li><b>La refacción que ya no venden</b> de tu carcacha (ese cliptecito que truena y no hay ni en el yonke).</li>
-      <li><b>Cosas pa'l estéreo</b> 🔊: cajas de bocinas, soportes, embellecedores. Pa' que tu nave truene aunque tú no entiendas cómo.</li>
-      <li><b>Piezas para fábricas e ingenios</b> 🏭 que tardan un mes en llegar. Nosotros: 2 días.</li>
-      <li><b>Prototipos y maquetas</b> pa' arquitectos y diseñadores (gente que sí terminó la escuela).</li>
-    </ul>
-    <div class="analogia"><b>Es como</b> un <b>OXXO de piezas</b> 🏪 que en vez de tenerlas en el estante, las fabrica al momento. ¿Captas o le pongo subtítulos?</div>
-  </div>
+  <!-- INDIRECTA + NOMBRE -->
+  <section class="scene">
+    <svg class="doodle wig" width="120" height="120" viewBox="0 0 120 120" fill="none" stroke="var(--blue)" stroke-width="3.5" stroke-linecap="round"><circle pathLength="1" cx="60" cy="40" r="22"/><path pathLength="1" d="M60 62v34M40 78h40M48 116l12-20 12 20"/><circle pathLength="1" cx="52" cy="38" r="2.5" stroke="var(--chalk)"/><circle pathLength="1" cx="68" cy="38" r="2.5" stroke="var(--chalk)"/><path pathLength="1" d="M50 50 q10 6 20 0" stroke="var(--pink)"/></svg>
+    <div class="big">¿Cómo te llamas?</div>
+    <div class="tiny">para hacerlo... más personal 😇</div>
+    <input id="nombre" placeholder="escribe aquí" maxlength="20" autocomplete="off">
+    <div style="margin-top:18px"><button class="btn" onclick="setNombre()">listo ✏️</button></div>
+  </section>
 
-  <!-- PASO 3 -->
-  <div class="card">
-    <div class="num-bola">3</div>
-    <div class="tag t-amber">El varo 💸</div>
-    <h2>¿Cómo ganamos lana? (la parte que sí te despierta)</h2>
-    <ul class="lista">
-      <li>El cliente llega con <b>un dibujo, foto o la pieza rota</b>. 📸</li>
-      <li>La dibujamos en la compu (eso lo hago yo, tú no toques nada). 💻</li>
-      <li>La impresora la imprime sola mientras nos echamos unos tacos. 🌮</li>
-      <li>El cliente paga. Nosotros contamos billetes. Tú aprendes a contar. 💵</li>
-    </ul>
-    <div class="analogia"><b>Es como</b> vender <b>agua de limón</b> 🍋: el limón cuesta nada, el vaso lo vendes a 15 varos. Aquí igual, pero con plástico.</div>
-    <div class="negro">el margen de ganancia es más alto que tus probabilidades de pasar un examen. 📉</div>
-  </div>
-
-  <!-- PASO 4 -->
-  <div class="card">
-    <div class="num-bola">4</div>
-    <div class="tag t-pink">Por qué sí jala</div>
-    <h2>¿Por qué NO es una pendejada (a diferencia de ti)?</h2>
-    <p>Porque <b>en Cardel NO hay NADIE más que haga esto</b>. Cero competencia. 🦗</p>
-    <p>La gente tiene que irse hasta <b>Veracruz o Xalapa</b> (1-2 horas 🚗) por una pieza. Nosotros se la hacemos <b>aquí</b> y rapidito.</p>
-    <div class="analogia"><b>Es como</b> ser <b>el único taco en una colonia muerta de hambre</b> 🌮👀.</div>
-    <div class="negro">somos el único negocio del pueblo que no depende de que tú entiendas algo. Por eso va a funcionar. 🙏</div>
-  </div>
-
-  <!-- TEST -->
-  <div class="card">
-    <div class="num-bola">5</div>
-    <div class="tag t-violet">Examen oficial</div>
-    <h2>🧪 Test de Pendejez Certificado™</h2>
-    <p>Contesta para saber tu nivel (spoiler: ya lo sabemos, pero tú diviértete).</p>
-    <div id="qbox"></div>
-    <div id="qprog" class="mono" style="margin-top:10px;color:#9aa"></div>
-  </div>
+  <!-- TEST (poco texto) -->
+  <section class="scene">
+    <div class="big"><span class="word-green">Mini examen</span> 📝</div>
+    <div class="tiny">3 preguntitas. Sin presión. Ni expectativas.</div>
+    <div id="qbox" style="margin-top:14px; width:100%"></div>
+    <div id="qprog" class="tiny" style="margin-top:6px"></div>
+  </section>
 
   <!-- CERTIFICADO -->
-  <div class="card" style="background:none;border:none;box-shadow:none;padding:0">
+  <section class="scene">
     <div id="cert">
-      <h3>🏆 CERTIFICADO OFICIAL DE PENDEJO 🏆</h3>
-      <p style="color:#cbb6ff">Por la presente se reconoce solemnemente a:</p>
-      <div class="nom" id="certNom">PENDEJO ANÓNIMO</div>
-      <p style="color:#e7defc">como portador legítimo y vitalicio del título de <b>PENDEJO CERTIFICADO</b>, con honores, mención cruel y sin posibilidad de apelación.</p>
-      <div class="foot">Folio: <span id="folio">PND-000000</span> · Expedido: <span id="fecha">hoy</span> · Válido hasta: la eternidad</div>
-      <div class="sello">SELLO<br>OFICIAL<br>🤡</div>
+      <div class="hand" style="font-size:26px;color:var(--yellow)">🎓 Diploma oficial 🎓</div>
+      <small>esto certifica que</small>
+      <div class="nom" id="certNom">______</div>
+      <small>POR FIN entendió el negocio.</small><br>
+      <small class="hand" style="font-size:20px;color:var(--green)">¡un aplauso, era difícil! 👏</small>
+      <div style="margin-top:10px"><small id="folio">N°&nbsp;000</small> · <small id="fecha"></small></div>
     </div>
-  </div>
+  </section>
 
   <!-- CIERRE -->
-  <div class="cierre">
-    <h2>YA ESTUVO, <span class="nm">COMPA</span> 🎤⬇️</h2>
-    <p>Si después de TODO esto sigues sin entenderle...</p>
-    <p>...no hay impresora 3D que imprima lo que te falta, carnal. 💀😂</p>
-    <div style="margin:18px 0"><button class="btn" onclick="fiesta()">🎉 Acepto que soy pendejo</button></div>
-    <p style="color:var(--orange);font-family:'Fredoka'">— Con cariño y un chingo de paciencia, tu socio que SÍ entiende el negocio.</p>
-  </div>
+  <section class="scene">
+    <div class="big"><span class="word-pink">Ya estuvo</span> 🎤</div>
+    <div class="lil">¿le entendiste?</div>
+    <div class="tiny">si no... lo leemos otra vez. Juntos. Despacito. 🐢</div>
+    <div style="margin-top:18px"><button class="btn" onclick="fiesta()">¡sí le entendí! 🎉</button></div>
+    <div class="hand" style="font-size:22px;color:var(--orange);margin-top:22px">— tu socio (el que sí le entiende) 😉</div>
+  </section>
 
-  <p class="mini">Hecho con puro amor y bullying sano. El negocio va MUY en serio aunque esta página no. 🖨️ · Impresión 3D · Cd. Cardel, Veracruz</p>
+  <p class="mini">puro cariño y bullying finito. El negocio va en serio, esta página no. 🖨️ Cardel, Ver.</p>
 </div>
 
 <script>
-// ===== utilidades de sonido (Web Audio, sin archivos) =====
-let actx;
-function beep(freq=440,dur=.08,type='square',vol=.05){
-  try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)();
-    const o=actx.createOscillator(), g=actx.createGain();
-    o.type=type; o.frequency.value=freq; g.gain.value=vol;
-    o.connect(g); g.connect(actx.destination); o.start(); o.stop(actx.currentTime+dur);
-  }catch(e){}
-}
-function trombon(){ // "wah wah" de derrota
-  const f=[330,294,262,196];
-  f.forEach((x,i)=>setTimeout(()=>beep(x,.18,'sawtooth',.06),i*180));
-}
+  // dibujar al hacer scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('drawn'); }),{threshold:.25});
+  document.querySelectorAll('.doodle').forEach(d=>io.observe(d));
 
-// ===== LOADER =====
-const frases=["Buscando neuronas...","Neurona encontrada: 1","Verificando si respira...","Confirmado: respira (a veces)","Calculando nivel de pendejez...","Resultado: crítico 🫠","Cargando insultos personalizados..."];
-let lp=0; const lb=document.querySelector('#loadbar>div'), lt=document.getElementById('loadtxt');
-const li=setInterval(()=>{ lp+=Math.random()*16+6; if(lp>100)lp=100; lb.style.width=lp+'%';
-  lt.textContent=frases[Math.min(frases.length-1,Math.floor(lp/100*frases.length))];
-  if(lp>=100){ clearInterval(li); setTimeout(()=>{ const L=document.getElementById('loader'); L.style.opacity=0; setTimeout(()=>L.style.display='none',600); typewriter(); animar(); }, 450); }
-},260);
+  // sonido sutil
+  let ac; function beep(f=600,d=.07,t='sine',v=.04){ try{ ac=ac||new (window.AudioContext||window.webkitAudioContext)(); const o=ac.createOscillator(),g=ac.createGain(); o.type=t; o.frequency.value=f; g.gain.value=v; o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime+d);}catch(e){} }
 
-// ===== Typewriter =====
-function typewriter(){
-  const t="> sujeto detectado. iniciando humillación educativa..._";
-  const el=document.getElementById('typed'); let i=0;
-  (function tick(){ el.textContent=t.slice(0,i); if(i++<t.length) setTimeout(tick,38); })();
-}
+  let NOMBRE="";
+  function setNombre(){ const v=document.getElementById('nombre').value.trim(); NOMBRE=v||"______";
+    document.querySelectorAll('.nm').forEach(e=>e.textContent=NOMBRE);
+    document.getElementById('certNom').textContent=NOMBRE; beep(700,.08); beep(900,.08); }
 
-// ===== Animar números y barra =====
-function animar(){
-  document.querySelectorAll('.stat .n').forEach(el=>{
-    const to=+el.dataset.to; let n=0; const step=Math.max(1,Math.round(to/45));
-    const iv=setInterval(()=>{ n+=step; if(n>=to){n=to; clearInterval(iv);} el.textContent=n; },28);
-  });
-  setTimeout(()=>{ document.getElementById('barpend').parentElement.querySelector('div').style.width='97%'; },300);
-}
+  // test corto
+  const Q=[
+    {q:"¿Qué hace la maquinita?",a:[{t:"piezas de plástico ✅",ok:1},{t:"magia negra",ok:0},{t:"¿tacos?",ok:0}]},
+    {q:"¿Cómo ganamos?",a:[{t:"barato hacerlo, caro venderlo ✅",ok:1},{t:"le pido a mi mamá",ok:0},{t:"ni idea",ok:0}]},
+    {q:"¿Por qué jala en Cardel?",a:[{t:"somos los únicos ✅",ok:1},{t:"por guapos",ok:0},{t:"¿jala?",ok:0}]}
+  ];
+  let qi=0,ac2=0;
+  function pintaQ(){ const b=document.getElementById('qbox'),p=document.getElementById('qprog');
+    if(qi>=Q.length){ fin(); return; } const it=Q[qi];
+    b.innerHTML="<div class='lil' style='margin-bottom:8px'>"+it.q+"</div>"+it.a.map((o,k)=>"<button class='opt' onclick='resp("+k+")'>"+o.t+"</button>").join("");
+    p.textContent=(qi+1)+" / "+Q.length; }
+  function resp(k){ if(Q[qi].a[k].ok){ ac2++; beep(880,.08); beep(1100,.08);} else { beep(200,.18,'sawtooth',.05);} qi++; pintaQ(); }
+  function fin(){ const b=document.getElementById('qbox'),p=document.getElementById('qprog');
+    let m = ac2===3? "¡3/3! 👏 nadie te ayudó... ¿verdad? 👀" : ac2===2? "2/3 😌 vamos mejorando, eh." : ac2+"/3 🐢 ...le seguimos echando ganas.";
+    b.innerHTML="<div class='lil'>"+m+"</div><div class='tiny'>↓ tu diploma ↓</div>"; p.textContent="";
+    const c=document.getElementById('cert'); c.style.display='block';
+    document.getElementById('certNom').textContent=NOMBRE||"______";
+    document.getElementById('folio').textContent="N° "+(Math.floor(Math.random()*900)+100);
+    document.getElementById('fecha').textContent=new Date().toLocaleDateString('es-MX');
+    c.scrollIntoView({behavior:'smooth'}); setTimeout(fiesta,400); }
 
-// ===== Nombre =====
-let NOMBRE="";
-function setNombre(){
-  const v=document.getElementById('nombre').value.trim();
-  NOMBRE = v || "Pendejo Anónimo";
-  document.querySelectorAll('.nm').forEach(e=>e.textContent=NOMBRE);
-  document.getElementById('certNom').textContent = NOMBRE.toUpperCase();
-  beep(660,.1); beep(880,.1);
-  alert("Registrado: "+NOMBRE+". Tu pendejez ahora es oficial y rastreable. 📡");
-}
+  // confeti de garabatos
+  const cv=document.getElementById('confeti'),cx=cv.getContext('2d'); let ps=[];
+  function sz(){ cv.width=innerWidth; cv.height=innerHeight; } sz(); addEventListener('resize',sz);
+  function fiesta(){ beep(523,.1);beep(659,.1);beep(784,.12); const e=["✏️","🖍️","⭐","🎉","✨","📏","🖨️"];
+    for(let i=0;i<70;i++) ps.push({x:Math.random()*cv.width,y:-20,vy:Math.random()*3+2,vx:Math.random()*2-1,r:Math.random()*360,c:e[Math.floor(Math.random()*e.length)],s:Math.random()*12+16}); }
+  (function lp(){ cx.clearRect(0,0,cv.width,cv.height); ps.forEach(p=>{ p.y+=p.vy;p.x+=p.vx;p.r+=5; cx.save();cx.translate(p.x,p.y);cx.rotate(p.r*Math.PI/180);cx.font=p.s+"px serif";cx.fillText(p.c,0,0);cx.restore(); }); ps=ps.filter(p=>p.y<cv.height+30); requestAnimationFrame(lp); })();
 
-// ===== Test =====
-const Q=[
-  {q:"¿Para qué sirve una impresora 3D?", a:[
-    {t:"Para hacer piezas de plástico a la medida ✅", ok:true},
-    {t:"Para imprimir mis calificaciones (todas reprobadas)", ok:false},
-    {t:"¿Se come?", ok:false}]},
-  {q:"¿Cómo ganamos dinero?", a:[
-    {t:"Vendiendo piezas: material barato, precio bueno ✅", ok:true},
-    {t:"Pidiéndole prestado a tu mamá otra vez", ok:false},
-    {t:"No sé, por eso pregunto", ok:false}]},
-  {q:"¿Por qué el negocio jala en Cardel?", a:[
-    {t:"Porque no hay nadie más que lo haga ✅", ok:true},
-    {t:"Porque yo le voy a echar ganas (mentira)", ok:false},
-    {t:"¿Cardel tiene negocios?", ok:false}]}
-];
-let qi=0, aciertos=0;
-function pintaQ(){
-  const box=document.getElementById('qbox'), prog=document.getElementById('qprog');
-  if(qi>=Q.length){ resultadoTest(); return; }
-  const it=Q[qi];
-  box.innerHTML="<p style='font-weight:700;font-size:17px;margin-bottom:8px'>"+(qi+1)+". "+it.q+"</p>"+
-    it.a.map((o,k)=>"<button class='opt' onclick='resp("+k+")'>"+o.t+"</button>").join("");
-  prog.textContent="Pregunta "+(qi+1)+" de "+Q.length;
-}
-function resp(k){
-  const ok=Q[qi].a[k].ok;
-  if(ok){ aciertos++; beep(880,.09); beep(1100,.09); } else { trombon(); }
-  qi++; pintaQ();
-}
-function resultadoTest(){
-  const box=document.getElementById('qbox'), prog=document.getElementById('qprog');
-  let msg;
-  if(aciertos===3) msg="😱 ¡"+aciertos+"/3! ¿Quién te sopló? Imposible que entendieras solo. Aun así: certificado abajo. 👇";
-  else if(aciertos===2) msg="😐 "+aciertos+"/3. Casi pareces persona funcional. Casi. 👇";
-  else msg="💀 "+aciertos+"/3. Felicidades, superaste nuestras peores expectativas (hacia abajo). 👇";
-  box.innerHTML="<p style='font-weight:700;font-size:17px'>"+msg+"</p>";
-  prog.textContent="";
-  // generar certificado
-  const cert=document.getElementById('cert'); cert.style.display='block';
-  document.getElementById('certNom').textContent=(NOMBRE||"Pendejo Anónimo").toUpperCase();
-  const f="PND-"+String(Math.floor(Math.random()*900000)+100000);
-  document.getElementById('folio').textContent=f;
-  const d=new Date(); document.getElementById('fecha').textContent=d.toLocaleDateString('es-MX');
-  cert.scrollIntoView({behavior:'smooth'});
-  setTimeout(fiesta,500);
-}
-
-// ===== Confeti =====
-const cc=document.getElementById('confeti'), ctx=cc.getContext('2d'); let parts=[];
-function size(){ cc.width=innerWidth; cc.height=innerHeight; } size(); addEventListener('resize',size);
-function fiesta(){
-  beep(523,.1); beep(659,.1); beep(784,.12);
-  const emo=["💀","🤡","🖨️","💩","🧠","🎉","☠️","🤓"];
-  for(let i=0;i<90;i++) parts.push({x:Math.random()*cc.width,y:-20,vy:Math.random()*3+2,vx:Math.random()*2-1,r:Math.random()*360,e:emo[Math.floor(Math.random()*emo.length)],s:Math.random()*14+14});
-}
-(function loop(){ ctx.clearRect(0,0,cc.width,cc.height);
-  parts.forEach(p=>{ p.y+=p.vy; p.x+=p.vx; p.r+=4; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r*Math.PI/180); ctx.font=p.s+"px serif"; ctx.fillText(p.e,0,0); ctx.restore(); });
-  parts=parts.filter(p=>p.y<cc.height+30); requestAnimationFrame(loop);
-})();
-
-// ===== Fondo de puntitos =====
-const bg=document.getElementById('bg'), bx=bg.getContext('2d'); let dots=[];
-function bsize(){ bg.width=innerWidth; bg.height=innerHeight; dots=Array.from({length:46},()=>({x:Math.random()*bg.width,y:Math.random()*bg.height,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4})); }
-bsize(); addEventListener('resize',bsize);
-(function bloop(){ bx.clearRect(0,0,bg.width,bg.height); bx.fillStyle="rgba(168,85,247,.5)";
-  dots.forEach(d=>{ d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>bg.width)d.vx*=-1; if(d.y<0||d.y>bg.height)d.vy*=-1; bx.beginPath(); bx.arc(d.x,d.y,1.6,0,7); bx.fill(); });
-  requestAnimationFrame(bloop);
-})();
-
-// arrancar test al cargar
-window.addEventListener('load',()=>{ pintaQ(); });
+  window.addEventListener('load',pintaQ);
 </script>
 </body>
 </html>
