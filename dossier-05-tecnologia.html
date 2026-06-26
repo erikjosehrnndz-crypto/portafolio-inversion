@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dossier 05: Tecnología y Economía del Mercado Negro</title>
   <link rel="stylesheet" href="forensic.css">
+  <style>
+    .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+    .roi-panel { background: rgba(0,0,0,0.6); padding: 25px; border-radius: 8px; border-top: 4px solid var(--accent-red); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .roi-panel.blue { border-top-color: var(--accent-cyan); background: rgba(0, 240, 255, 0.03); }
+    .price-tag { font-family: 'JetBrains Mono', monospace; font-size: 2.5rem; font-weight: bold; margin: 15px 0; }
+    .price-tag.red { color: var(--accent-red); }
+    .price-tag.cyan { color: var(--accent-cyan); }
+    .cost-breakdown { padding-left: 20px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 20px; }
+    .roi-conclusion { background: rgba(255,42,42,0.1); border: 1px solid var(--accent-red); padding: 20px; text-align: center; margin-top: 40px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; color: var(--text-main); font-size: 1.1rem; }
+    
+    @media (max-width: 768px) {
+      .roi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
   <!-- NAVBAR -->
@@ -42,72 +56,55 @@
     </div>
   </section>
 
-  <!-- CASE STUDIES -->
-  <section class="section">
+  <!-- ECONOMICS: THE FINAL COMPARISON -->
+  <section class="section" style="padding-bottom: 100px;">
     <div class="container reveal">
-      <span class="badge red">INTELIGENCIA DE CAMPO</span>
-      <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;">Casos de Estudio: Implementación Paramilitar</h2>
+      <span class="badge red">LA CÚSPIDE DE LA AMENAZA: ANÁLISIS FINANCIERO</span>
+      <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 20px;">El Desplome del Costo Marginal</h2>
+      <p style="text-align: center; color: var(--text-muted); max-width: 900px; margin: 0 auto 40px;">El verdadero peligro para la seguridad nacional no es la tecnología, es el <strong>Retorno de Inversión (ROI)</strong>. La logística armamentística tradicional requiere sobornos aduanales, intermediarios y riesgos de transporte. La manufactura híbrida descentralizada elimina toda la cadena de suministro, destruyendo la barrera económica para armar milicias enteras.</p>
       
-      <div class="grid-3">
-        <div class="panel">
-          <h3 class="text-cyan mono">MYANMAR (2021-Actualidad)</h3>
-          <p style="font-size: 0.9rem; margin-bottom: 10px;" class="text-muted"><em>Fuerzas de Defensa del Pueblo (PDF)</em></p>
-          <p class="text-muted">Creación de "fábricas de jungla" propulsadas por energía solar. Demostraron que el diseño FGC-9 soporta la logística a nivel de guerra asimétrica ante el embargo de armas pesadas.</p>
+      <div class="roi-grid">
+        <!-- MÉTODO TRADICIONAL -->
+        <div class="roi-panel">
+          <h3 class="mono text-muted">MÉTODO TRADICIONAL (CONTRABANDO)</h3>
+          <p style="font-size: 0.9rem; color: #888;">Costo de adquirir un arma semiautomática táctica de 9mm (Ej. Glock o AR-9) en el Mercado Negro Latinoamericano/Europeo.</p>
+          
+          <div class="price-tag red">$800 - $1,500 USD</div>
+          
+          <ul class="cost-breakdown">
+            <li>> Precio base del arma en país de origen.</li>
+            <li>> Pago a intermediarios ("Straw Purchasers").</li>
+            <li>> Sobornos fronterizos y aduanales (Tráfico "Hormiga").</li>
+            <li>> Prima de riesgo (Posibilidad de incautación o arresto).</li>
+          </ul>
+          
+          <p style="color: var(--accent-red); font-weight: bold; font-family: 'JetBrains Mono';">> RIESGO DE INTERCEPCIÓN: CRÍTICO (Alta exposición logística)</p>
         </div>
 
-        <div class="panel alert">
-          <h3 class="text-red mono">MÉXICO (2023-2024)</h3>
-          <p style="font-size: 0.9rem; margin-bottom: 10px;" class="text-muted"><em>Cárteles Transnacionales</em></p>
-          <p class="text-muted">No imprimen armas completas, imprimen "Multiplicadores de Fuerza". Sistemas de estabilización para dejar caer explosivos C4 desde drones, y "Glock Switches" ($1.50 USD) que convierten pistolas semiautomáticas en ráfaga completa.</p>
-        </div>
-
-        <div class="panel">
-          <h3 class="text-cyan mono">ESPAÑA (2021)</h3>
-          <p style="font-size: 0.9rem; margin-bottom: 10px;" class="text-muted"><em>Operación Carmelo</em></p>
-          <p class="text-muted">Desmantelamiento de la primera fábrica supremacista. Evidencia de tubos preparados para ECM y manuales de fabricación de armas híbridas obtenidos mediante redes descentralizadas.</p>
+        <!-- MÉTODO 3D FORENSE -->
+        <div class="roi-panel blue">
+          <h3 class="mono text-cyan">MANUFACTURA HÍBRIDA 3D (FGC-9)</h3>
+          <p style="font-size: 0.9rem; color: #888;">Costo marginal de fabricar un arma letal intra-muros, una vez asimilado el equipo base (Impresora de $190 USD).</p>
+          
+          <div class="price-tag cyan">$96.50 USD</div>
+          
+          <ul class="cost-breakdown">
+            <li>> Plástico PLA+ (Chasis y Cargador): <strong>$15.00 USD</strong></li>
+            <li>> Acero (Tubo DIN 2391 + Barra 1018): <strong>$28.50 USD</strong></li>
+            <li>> Tornillería, Resortes y Epoxi: <strong>$18.00 USD</strong></li>
+            <li>> Mecanismo de Disparo (FCG genérico): <strong>$35.00 USD</strong></li>
+          </ul>
+          
+          <p style="color: var(--accent-cyan); font-weight: bold; font-family: 'JetBrains Mono';">> RIESGO DE INTERCEPCIÓN: CERO (Elementos legales de Doble Uso)</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ECONOMICS -->
-  <section class="section" style="padding-bottom: 150px;">
-    <div class="container reveal">
-      <div class="panel alert" style="max-width: 900px; margin: 0 auto;">
-        <h2 style="font-size: 2rem; margin-bottom: 10px;">La Economía del Mercado Negro</h2>
-        <p style="color: var(--text-muted); margin-bottom: 20px;">La amenaza final no es técnica, es el desplome del Costo Marginal. Una vez adquirida la impresora, armar a una célula cuesta menos del 10% del valor del mercado negro.</p>
-        
-        <table>
-          <thead>
-            <tr>
-              <th>COMPONENTE</th>
-              <th>MERCADO NEGRO</th>
-              <th>MANUFACTURA 3D</th>
-              <th>DIFERENCIAL</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Carabina 9mm</td>
-              <td>$450 - $700+ USD</td>
-              <td class="text-cyan mono">$150 - $250 USD</td>
-              <td class="text-red">↓ 65% Ahorro</td>
-            </tr>
-            <tr>
-              <td>Silenciador (Supresor)</td>
-              <td>$350 - $2,000 USD</td>
-              <td class="text-cyan mono">$50 - $80 USD</td>
-              <td class="text-red">↓ 90% Ahorro</td>
-            </tr>
-            <tr>
-              <td>Glock Switch (Auto-Sear)</td>
-              <td>$250 - $500 USD</td>
-              <td class="text-cyan mono">$1.50 USD</td>
-              <td class="text-red">↓ 99% Ahorro</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- ROI CONCLUSIÓN -->
+      <div class="roi-conclusion">
+        <span class="text-red">AHORRO NETO: 90.3%</span><br><br>
+        <p style="color: var(--text-muted); font-size: 0.95rem; font-family: 'Inter', sans-serif;">Por el precio de contrabandear <strong>1 fusil tradicional</strong> ($1,000 USD), una célula criminal puede fabricar <strong>10 fusiles híbridos</strong> irrastreables ($960 USD), sin cruzar una sola frontera, sin tratar con cárteles superiores y sin generar alertas en las unidades de inteligencia financiera.</p>
       </div>
+
     </div>
   </section>
 
